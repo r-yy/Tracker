@@ -8,8 +8,15 @@
 import UIKit
 
 final class TabBarController: UITabBarController {
-    private let trackersVC = TrackersVC()
+    private lazy var trackersVC: TrackersVC = {
+        let vc = TrackersVC()
+        dateSelectionDelegate = vc
+        return vc
+    }()
     private let statisticVC = StatisticVC()
+    private let datePicker = UIDatePicker()
+
+    weak var dateSelectionDelegate: TabBarControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,9 +32,7 @@ final class TabBarController: UITabBarController {
     @objc
     private func leftButtonTap() {
         let navigationController = UINavigationController()
-        navigationController.title = "HUI"
-        navigationController.navigationItem.titleView
-        navigationController.navigationItem.titleView?.tintColor = .ypBlack
+
         let createMainVC = CreateMainVC()
         createMainVC.createMainView.delegate = createMainVC
 
@@ -39,7 +44,8 @@ final class TabBarController: UITabBarController {
 
     @objc
     private func datePickerTap(_ sender: UIDatePicker) {
-
+        let selectedDate = datePicker.date
+        dateSelectionDelegate?.dateSelected(date: selectedDate)
     }
 
     private func makeTabBar() {
@@ -81,11 +87,10 @@ final class TabBarController: UITabBarController {
         )
         trackersVC.navigationItem.leftBarButtonItem = leftBarButton
 
-        let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .compact
         datePicker.datePickerMode = .date
         datePicker.backgroundColor = .ypDateGray
-        datePicker.addTarget(self, action: #selector(datePickerTap(_:)), for: .touchUpInside)
+        datePicker.addTarget(self, action: #selector(datePickerTap(_:)), for: .valueChanged)
 
         let rightBarButton = UIBarButtonItem(customView: datePicker)
         trackersVC.navigationItem.rightBarButtonItem = rightBarButton
