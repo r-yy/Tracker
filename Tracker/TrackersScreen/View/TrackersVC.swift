@@ -21,6 +21,7 @@ final class TrackersVC: UIViewController {
     var categories: [TrackerCategory] = []
     var visibleCategories: [TrackerCategory] = []
     var completedTrackers: [TrackerRecord] = []
+    let calendar = Calendar.current
     var currentDate: Date = Date()
     var selectedDate: Date = Date()
     var trackerTapStates: [String: Bool] = [:]
@@ -118,7 +119,23 @@ extension TrackersVC: TrackersControllerDelegate {
         guard let indexPath = trackersView.collectionView.indexPath(for: cell) else {
             return
         }
-        if selectedDate == currentDate {
+        let selectedDateComponents = calendar.dateComponents(
+            [.year, .month, .day],
+            from: selectedDate
+        )
+        let currentDateComponents = calendar.dateComponents(
+            [.year, .month, .day],
+            from: currentDate
+        )
+
+        let selectedDateOnly = calendar.date(
+            from: selectedDateComponents
+        )
+        let currentDateOnly = calendar.date(
+            from: currentDateComponents
+        )
+
+        if selectedDateOnly == currentDateOnly {
             let trackerId = categories[indexPath.section].trackers[indexPath.row].id
 
             if trackerTapStates[trackerId] == true {

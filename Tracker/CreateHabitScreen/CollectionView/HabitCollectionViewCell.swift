@@ -18,11 +18,18 @@ final class HabitCollectionViewCell: UICollectionViewCell {
 
     let colorView: UIView = {
         let view = UIView()
+
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = 8
+
         return view
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        contentView.layer.masksToBounds = true
+        contentView.layer.cornerRadius = 15
+
         makeCell()
     }
 
@@ -31,9 +38,6 @@ final class HabitCollectionViewCell: UICollectionViewCell {
     }
 
     private func makeCell() {
-        contentView.layer.masksToBounds = true
-        contentView.layer.cornerRadius = 8
-
         contentView.addSubview(emojiLabel)
         contentView.addSubview(colorView)
 
@@ -48,16 +52,20 @@ final class HabitCollectionViewCell: UICollectionViewCell {
                 equalTo: contentView.centerYAnchor
             ),
             colorView.topAnchor.constraint(
-                equalTo: contentView.topAnchor
+                equalTo: contentView.topAnchor,
+                constant: 7
             ),
             colorView.trailingAnchor.constraint(
-                equalTo: contentView.trailingAnchor
+                equalTo: contentView.trailingAnchor,
+                constant: -7
             ),
             colorView.bottomAnchor.constraint(
-                equalTo: contentView.bottomAnchor
+                equalTo: contentView.bottomAnchor,
+                constant: -7
             ),
             colorView.leadingAnchor.constraint(
-                equalTo: contentView.leadingAnchor
+                equalTo: contentView.leadingAnchor,
+                constant: 7
             )
         ])
     }
@@ -68,5 +76,19 @@ final class HabitCollectionViewCell: UICollectionViewCell {
 
     func configColorCell(color: UIColor) {
         colorView.backgroundColor = color
+    }
+
+    func selectCellWithFill() {
+        contentView.backgroundColor = .ypGray.withAlphaComponent(0.3)
+    }
+
+    func selectCellWithOutline(color: UIColor) {
+        contentView.layer.borderWidth = 3
+        contentView.layer.borderColor = color.withAlphaComponent(0.3).cgColor
+    }
+
+    func resetSelectionStyle() {
+        contentView.layer.borderWidth = 0
+        contentView.backgroundColor = .clear
     }
 }

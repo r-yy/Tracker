@@ -22,7 +22,7 @@ final class CreateHabitVC: UIViewController {
     }()
 
     let gridGeometric = GridGeometric(
-        cellCount: 6, leftInset: 16, rightInset: 16, cellSpacing: 16
+        cellCount: 6, leftInset: 5, rightInset: 5, cellSpacing: 5
     )
 
     let emojiArray: [String] = [

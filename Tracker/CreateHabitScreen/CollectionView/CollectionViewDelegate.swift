@@ -36,6 +36,14 @@ extension CreateHabitVC: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        return 0
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         let availableWidth = collectionView.frame.width - gridGeometric.paddingWidth
@@ -48,13 +56,25 @@ extension CreateHabitVC: UICollectionViewDelegateFlowLayout {
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
-        if indexPath.section == 0 {
-            trackerEmoji = emojiArray[indexPath.row]
-        } else {
-            trackerColor = colorsArray[indexPath.row]
+        let cell = collectionView.cellForItem(at: indexPath) as? HabitCollectionViewCell
+
+        if let previousSelectedIndexPath = selectedIndexPaths[indexPath.section],
+            let previousSelectedCell = collectionView.cellForItem(
+                at: previousSelectedIndexPath
+            ) as? HabitCollectionViewCell {
+            previousSelectedCell.resetSelectionStyle()
         }
 
-        let cell = collectionView.cellForItem(at: indexPath)
+        if indexPath.section == 0 {
+            trackerEmoji = emojiArray[indexPath.row]
+            cell?.selectCellWithFill()
+        } else {
+            trackerColor = colorsArray[indexPath.row]
+            cell?.selectCellWithOutline(color: colorsArray[indexPath.row])
+        }
+
+        selectedIndexPaths[indexPath.section] = indexPath
+
         UIView.animate(withDuration: 0.15, animations: {
             cell?.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
         }, completion: { finish in
