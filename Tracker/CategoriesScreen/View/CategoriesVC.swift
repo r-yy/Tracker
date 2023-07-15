@@ -19,6 +19,8 @@ final class CategoriesVC: UIViewController {
 
     var categories = [String]()
 
+    weak var delegate: CategoriesSelectDelegate?
+
     override func loadView() {
         super.loadView()
         view = categoriesView

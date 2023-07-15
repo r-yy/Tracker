@@ -26,6 +26,10 @@ final class NewCategoryVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setTitle()
+
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
     }
 
     private func setTitle() {
@@ -37,6 +41,11 @@ final class NewCategoryVC: UIViewController {
             size: 18
         )
         self.navigationItem.titleView = titleLabel
+    }
+
+    @objc
+    private func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 

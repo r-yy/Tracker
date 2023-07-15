@@ -29,10 +29,14 @@ extension TrackersVC: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        let completedTrackerIds = completedTrackers.map { $0.id }
-        let isTrackerCompleted = completedTrackerIds.contains(
-            visibleCategories[indexPath.section].trackers[indexPath.row].id
-        )
+        let isTrackerCompleted = completedTrackers.contains(where: { (tracker) -> Bool in
+            let selectedDateComponents = calendar.dateComponents([.year, .month, .day], from: selectedDate)
+            let selectedDateOnly = calendar.date(from: selectedDateComponents)
+
+            let recordDateComponents = calendar.dateComponents([.year, .month, .day], from: tracker.date)
+            let recordDateOnly = calendar.date(from: recordDateComponents)
+            return tracker.id == visibleCategories[indexPath.section].trackers[indexPath.row].id && recordDateOnly == selectedDateOnly
+        })
 
 
         cell.configCell(

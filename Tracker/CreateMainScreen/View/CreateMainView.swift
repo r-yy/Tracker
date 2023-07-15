@@ -85,8 +85,8 @@ final class CreateMainView: UIView {
 
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(
-                equalTo: topAnchor,
-                constant: 281
+                equalTo: safeAreaLayoutGuide.topAnchor,
+                constant: 275
             ),
             stackView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
@@ -94,7 +94,7 @@ final class CreateMainView: UIView {
             ),
             stackView.bottomAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.bottomAnchor,
-                constant: -281
+                constant: -275
             ),
             stackView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,

@@ -19,11 +19,7 @@ extension CategoriesVC: UITableViewDelegate {
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath
     ) {
-        NotificationCenter.default.post(
-            name: NSNotification.Name(rawValue: "CategorySelected"),
-            object: nil,
-            userInfo: ["SelectedCategory": categories[indexPath.row]]
-        )
+        delegate?.selectCategory(category: categories[indexPath.row])
         navigationController?.popViewController(animated: true)
     }
 }

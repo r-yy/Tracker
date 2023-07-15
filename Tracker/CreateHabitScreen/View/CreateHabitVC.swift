@@ -97,16 +97,16 @@ final class CreateHabitVC: UIViewController {
 
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(handleNotification(_:)),
-            name: Notification.Name("CategorySelected"),
-            object: nil
-        )
-        NotificationCenter.default.addObserver(
-            self,
             selector: #selector(setSelectedWeekdays(_:)),
             name: Notification.Name("SetWeekdays"),
             object: nil
         )
+
+        let tap = UITapGestureRecognizer(
+            target: self, action: #selector(dismissKeyboard)
+        )
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
     }
 
     init(isHabit: Bool) {
@@ -119,15 +119,6 @@ final class CreateHabitVC: UIViewController {
     }
 
     @objc
-    private func handleNotification(_ notification: NSNotification) {
-        guard let title = notification.userInfo?["SelectedCategory"] as? String else {
-            return
-        }
-        categoryTitle = title
-        createHabitView.tableView.reloadData()
-    }
-
-    @objc
     private func setSelectedWeekdays(_ notification: NSNotification) {
         guard let weekdays = notification.userInfo?["SelectedDays"] as? [DayOfWeek] else {
             return
@@ -137,6 +128,11 @@ final class CreateHabitVC: UIViewController {
             trackerSchedule?.append(weekday.shortForm)
         }
         createHabitView.tableView.reloadData()
+    }
+
+    @objc
+    private func dismissKeyboard() {
+        view.endEditing(true)
     }
 
     private func updateButtonAppearance() {
@@ -173,6 +169,18 @@ extension CreateHabitVC: CreateHabitDelegate {
     }
 
     func createTracker() {
+        if trackerSchedule == nil {
+            trackerSchedule = [
+                DayOfWeek.monday.shortForm,
+                DayOfWeek.tuesday.shortForm,
+                DayOfWeek.wednesday.shortForm,
+                DayOfWeek.thursday.shortForm,
+                DayOfWeek.friday.shortForm,
+                DayOfWeek.saturday.shortForm,
+                DayOfWeek.sunday.shortForm,
+            ]
+        }
+
         let tracker = Tracker(
             title: trackerTitle,
             color: trackerColor,
@@ -217,5 +225,12 @@ extension CreateHabitVC: UITextFieldDelegate {
         } else {
             return false
         }
+    }
+}
+
+extension CreateHabitVC: CategoriesSelectDelegate {
+    func selectCategory(category: String) {
+        categoryTitle = category
+        createHabitView.tableView.reloadData()
     }
 }

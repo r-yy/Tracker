@@ -14,18 +14,15 @@ extension CreateHabitVC: UITableViewDelegate {
     ) {
         if indexPath.row == 0 {
             let categoriesVC = CategoriesVC()
+            categoriesVC.delegate = self
             categoriesVC.categoriesView.delegate = categoriesVC
             categoriesVC.navigationItem.hidesBackButton = true
-            self.navigationController?.pushViewController(
-                categoriesVC, animated: true
-            )
+            self.navigationController?.pushViewController(categoriesVC, animated: true)
         } else {
             let scheduleVC = ScheduleVC()
             scheduleVC.scheduleView.delegate = scheduleVC
             scheduleVC.navigationItem.hidesBackButton = true
-            self.navigationController?.pushViewController(
-                scheduleVC, animated: true
-            )
+            self.navigationController?.pushViewController(scheduleVC, animated: true)
         }
     }
 

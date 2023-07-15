@@ -68,6 +68,7 @@ final class CreateHabitView: UIView {
         )
         tableView.layer.masksToBounds = true
         tableView.layer.cornerRadius = 16
+        tableView.keyboardDismissMode = .onDrag
 
         return tableView
     }()
@@ -98,6 +99,7 @@ final class CreateHabitView: UIView {
         )
         collectionView.backgroundColor = .ypWhite
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.keyboardDismissMode = .onDrag
 
         return collectionView
     }()

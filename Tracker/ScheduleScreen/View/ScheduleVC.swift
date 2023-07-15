@@ -56,6 +56,10 @@ extension ScheduleVC: ScheduleDelegate {
               let weekday = DayOfWeek(rawValue: indexPath.row) else {
             return
         }
-        selectedDays.append(weekday)
+        if let index = selectedDays.firstIndex(where: { $0.shortForm == weekday.shortForm }) {
+            selectedDays.remove(at: index)
+        } else {
+            selectedDays.append(weekday)
+        }
     }
 }

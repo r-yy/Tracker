@@ -64,6 +64,7 @@ final class TrackersView: UIView {
             withReuseIdentifier: TrackerHeader.identifier
         )
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.keyboardDismissMode = .onDrag
 
         return collectionView
     }()

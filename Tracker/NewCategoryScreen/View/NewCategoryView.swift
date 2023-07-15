@@ -20,6 +20,7 @@ final class NewCategoryView: UIView {
         textField.leftViewMode = .always
         textField.layer.masksToBounds = true
         textField.layer.cornerRadius = 16
+        textField.becomeFirstResponder()
 
         return textField
     }()

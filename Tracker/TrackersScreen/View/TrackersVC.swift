@@ -24,9 +24,9 @@ final class TrackersVC: UIViewController {
     let calendar = Calendar.current
     var currentDate: Date = Date()
     var selectedDate: Date = Date()
-    var trackerTapStates: [String: Bool] = [:]
 
     private let dateFormatter = DateFormatter()
+    private let datePicker = UIDatePicker()
   
     override func loadView() {
         super.loadView()
@@ -36,26 +36,10 @@ final class TrackersVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handleNotification(_:)),
-            name: NSNotification.Name(rawValue: "NotificationIdentifier"),
-            object: nil
-        )
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(self.reloadCollectionView),
-            name: Notification.Name("TrackersUpdated"),
-            object: nil
-        )
-
+        setObservers()
         checkStubImage()
-
-        let tap = UITapGestureRecognizer(
-            target: self, action: #selector(dismissKeyboard)
-        )
-        view.addGestureRecognizer(tap)
+        setGestureRecognizer()
+        setNavigationBar()
     }
 
     @objc
@@ -77,23 +61,90 @@ final class TrackersVC: UIViewController {
 
     @objc
     private func reloadCollectionView(notification: NSNotification) {
+        dateSelected(date: selectedDate)
         trackersView.collectionView.reloadData()
     }
 
     @objc
-    private func dismissKeyboard() {
+    func dismissKeyboard() {
         view.endEditing(true)
     }
 
+    @objc
+    private func createHabitButtonTap() {
+        dismissKeyboard()
+        let navigationController = UINavigationController()
+
+        let createMainVC = CreateMainVC()
+        createMainVC.createMainView.delegate = createMainVC
+
+        navigationController.setViewControllers([createMainVC], animated: true)
+
+        navigationController.modalPresentationStyle = .formSheet
+        present(navigationController, animated: true)
+    }
+
+    @objc
+    private func datePickerTap(_ sender: UIDatePicker) {
+        let selectedDate = datePicker.date
+        dateSelected(date: selectedDate)
+    }
+
     private func checkStubImage() {
-        if !categories.isEmpty {
+        if !visibleCategories.isEmpty {
             trackersView.stubText.isHidden = true
             trackersView.stubImage.isHidden = true
+        } else {
+            trackersView.stubText.isHidden = false
+            trackersView.stubImage.isHidden = false
         }
     }
-}
 
-extension TrackersVC: TabBarControllerDelegate {
+    private func setNavigationBar() {
+        let image = UIImage(systemName: "plus")
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 21, weight: .semibold)
+        let largeImage = image?.withConfiguration(imageConfig)
+
+        let leftBarButton = UIBarButtonItem(
+            image: largeImage,
+            style: .plain,
+            target: self,
+            action: #selector(createHabitButtonTap)
+        )
+        navigationItem.leftBarButtonItem = leftBarButton
+
+        datePicker.preferredDatePickerStyle = .compact
+        datePicker.datePickerMode = .date
+        datePicker.backgroundColor = .ypDateGray
+        datePicker.addTarget(self, action: #selector(datePickerTap(_:)), for: .valueChanged)
+
+        let rightBarButton = UIBarButtonItem(customView: datePicker)
+        navigationItem.rightBarButtonItem = rightBarButton
+    }
+
+    private func setGestureRecognizer() {
+        let tap = UITapGestureRecognizer(
+            target: self, action: #selector(dismissKeyboard)
+        )
+        view.addGestureRecognizer(tap)
+    }
+
+    private func setObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleNotification(_:)),
+            name: NSNotification.Name(rawValue: "NotificationIdentifier"),
+            object: nil
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.reloadCollectionView),
+            name: Notification.Name("TrackersUpdated"),
+            object: nil
+        )
+    }
+
     func dateSelected(date: Date) {
         selectedDate = date
         dateFormatter.locale = Locale(identifier: "ru_RU")
@@ -110,6 +161,11 @@ extension TrackersVC: TabBarControllerDelegate {
                 return false
             }
         }
+
+        if visibleCategories.isEmpty {
+
+        }
+        checkStubImage()
         trackersView.collectionView.reloadData()
     }
 }
@@ -136,36 +192,47 @@ extension TrackersVC: TrackersControllerDelegate {
         )
 
         if selectedDateOnly == currentDateOnly {
-            let trackerId = categories[indexPath.section].trackers[indexPath.row].id
+            let trackerId = visibleCategories[indexPath.section].trackers[indexPath.row].id
 
-            if trackerTapStates[trackerId] == true {
-                categories[indexPath.section].trackers[indexPath.row].dayCounter -= 1
-                if let index = completedTrackers.firstIndex(where: { $0.id == trackerId && $0.date == currentDate }) {
+            if completedTrackers.contains(where: { tracker in
+                let dateComponents = calendar.dateComponents(
+                    [.year, .month, .day], from: tracker.date
+                )
+                let dateOnly = calendar.date(from: dateComponents)
+                return tracker.id == trackerId && dateOnly == currentDateOnly
+            }) {
+                visibleCategories[indexPath.section].trackers[indexPath.row].dayCounter -= 1
+                if let index = completedTrackers.firstIndex(where: { $0.id == trackerId }) {
                     completedTrackers.remove(at: index)
                 }
-
-                trackerTapStates[trackerId] = false
             } else {
-                categories[indexPath.section].trackers[indexPath.row].dayCounter += 1
-                let completedTracker = categories[indexPath.section].trackers[indexPath.row]
+                visibleCategories[indexPath.section].trackers[indexPath.row].dayCounter += 1
+                let completedTracker = visibleCategories[indexPath.section].trackers[indexPath.row]
                 completedTrackers.append(TrackerRecord(id: completedTracker.id, date: currentDate))
-
-                trackerTapStates[trackerId] = true
             }
-            visibleCategories = categories
+
+            if let index = categories.firstIndex(where: { $0.title == visibleCategories[indexPath.section].title }) {
+                categories[index] = visibleCategories[indexPath.section]
+            }
             trackersView.collectionView.reloadItems(at: [indexPath])
         }
     }
-
 }
 
 extension TrackersVC: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
-            if let searchText = textField.text, !searchText.isEmpty {
-                visibleCategories = categories.filter { $0.title.lowercased().contains(searchText.lowercased()) }
-            } else {
-                visibleCategories = categories
-            }
-            trackersView.collectionView.reloadData()
+        if let searchText = textField.text, !searchText.isEmpty {
+            visibleCategories = categories.map { category in
+                var newCategory = category
+                newCategory.trackers = category.trackers.filter {
+                    $0.title.lowercased().contains(searchText.lowercased())
+                }
+                return newCategory
+            }.filter { !$0.trackers.isEmpty }
+        } else {
+            dateSelected(date: selectedDate)
         }
+        checkStubImage()
+        trackersView.collectionView.reloadData()
+    }
 }
