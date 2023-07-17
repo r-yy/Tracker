@@ -184,14 +184,16 @@ extension TrackersVC: TrackersControllerDelegate {
             from: currentDate
         )
 
-        let selectedDateOnly = calendar.date(
+        guard let selectedDateOnly = calendar.date(
             from: selectedDateComponents
-        )
-        let currentDateOnly = calendar.date(
-            from: currentDateComponents
-        )
+        ),
+              let currentDateOnly = calendar.date(
+                  from: currentDateComponents
+              ) else {
+            return
+        }
 
-        if selectedDateOnly == currentDateOnly {
+        if selectedDateOnly <= currentDateOnly {
             let trackerId = visibleCategories[indexPath.section].trackers[indexPath.row].id
 
             if completedTrackers.contains(where: { tracker in
@@ -199,16 +201,22 @@ extension TrackersVC: TrackersControllerDelegate {
                     [.year, .month, .day], from: tracker.date
                 )
                 let dateOnly = calendar.date(from: dateComponents)
-                return tracker.id == trackerId && dateOnly == currentDateOnly
+                return tracker.id == trackerId && dateOnly == selectedDateOnly
             }) {
                 visibleCategories[indexPath.section].trackers[indexPath.row].dayCounter -= 1
-                if let index = completedTrackers.firstIndex(where: { $0.id == trackerId }) {
+                if let index = completedTrackers.firstIndex(where: { tracker in
+                    let dateComponents = calendar.dateComponents(
+                        [.year, .month, .day], from: tracker.date
+                    )
+                    let dateOnly = calendar.date(from: dateComponents)
+                    return tracker.id == trackerId && dateOnly == selectedDateOnly
+                }) {
                     completedTrackers.remove(at: index)
                 }
             } else {
                 visibleCategories[indexPath.section].trackers[indexPath.row].dayCounter += 1
                 let completedTracker = visibleCategories[indexPath.section].trackers[indexPath.row]
-                completedTrackers.append(TrackerRecord(id: completedTracker.id, date: currentDate))
+                completedTrackers.append(TrackerRecord(id: completedTracker.id, date: selectedDate))
             }
 
             if let index = categories.firstIndex(where: { $0.title == visibleCategories[indexPath.section].title }) {
