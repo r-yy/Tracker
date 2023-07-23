@@ -19,6 +19,10 @@ extension CategoriesVC: UITableViewDelegate {
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath
     ) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? CategoriesCell else {
+            return
+        }
+        cell.checkmarkView.isHidden = false
         delegate?.selectCategory(category: categories[indexPath.row])
         navigationController?.popViewController(animated: true)
     }

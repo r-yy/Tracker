@@ -15,6 +15,7 @@ extension CreateHabitVC: UITableViewDelegate {
         if indexPath.row == 0 {
             let categoriesVC = CategoriesVC()
             categoriesVC.delegate = self
+            categoriesVC.dataProvider = dataProvider
             categoriesVC.categoriesView.delegate = categoriesVC
             categoriesVC.navigationItem.hidesBackButton = true
             self.navigationController?.pushViewController(categoriesVC, animated: true)

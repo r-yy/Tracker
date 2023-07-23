@@ -22,6 +22,22 @@ final class CategoriesCell: UITableViewCell {
         return label
     }()
 
+    let view: UIView = {
+        let view = UIView()
+
+        view.backgroundColor = .ypGray
+
+        return view
+    }()
+
+    let checkmarkView: UIImageView = {
+        let view = UIImageView()
+
+        view.image = UIImage(systemName: "checkmark")
+
+        return view
+    }()
+
     override init(
         style: UITableViewCell.CellStyle,
         reuseIdentifier: String?
@@ -36,13 +52,20 @@ final class CategoriesCell: UITableViewCell {
         fatalError()
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        contentView.layer.cornerRadius = 0
+        view.isHidden = false
+    }
+
     private func makeCell() {
         contentView.backgroundColor = .ypDateGray
-        contentView.layer.masksToBounds = true
-        contentView.layer.cornerRadius = 16
 
-        contentView.addSubview(cellLabel)
-        cellLabel.translatesAutoresizingMaskIntoConstraints = false
+        [cellLabel, view, checkmarkView].forEach { item in
+            contentView.addSubview(item)
+            item.translatesAutoresizingMaskIntoConstraints = false
+
+        }
 
         NSLayoutConstraint.activate([
             cellLabel.centerYAnchor.constraint(
@@ -51,11 +74,45 @@ final class CategoriesCell: UITableViewCell {
             cellLabel.leadingAnchor.constraint(
                 equalTo: contentView.leadingAnchor,
                 constant: 16
+            ),
+            contentView.heightAnchor.constraint(
+                equalToConstant: 75
+            ),
+            view.topAnchor.constraint(
+                equalTo: contentView.bottomAnchor,
+                constant: -1
+            ),
+            view.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -16
+            ),
+            view.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: 16
+            ),
+            view.heightAnchor.constraint(
+                equalToConstant: 1
+            ),
+            checkmarkView.centerYAnchor.constraint(
+                equalTo: contentView.centerYAnchor
+            ),
+            checkmarkView.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -16
             )
         ])
+        checkmarkView.isHidden = true
     }
 
-    func configCell(title: String) {
+    func configCell(title: String, isLastCell: Bool) {
         cellLabel.text = title
+        if isLastCell {
+            contentView.clipsToBounds = true
+            contentView.layer.cornerRadius = 16
+            contentView.layer.maskedCorners = [
+                .layerMaxXMaxYCorner, .layerMinXMaxYCorner
+            ]
+            view.isHidden = true
+        }
     }
 }

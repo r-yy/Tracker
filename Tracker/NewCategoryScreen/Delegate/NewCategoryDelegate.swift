@@ -10,3 +10,7 @@ import Foundation
 protocol NewCategoryDelegate: AnyObject {
     func saveCategory()
 }
+
+protocol NewCategoryVCDelegate: AnyObject {
+    func addCategory(category: String)
+}

@@ -84,6 +84,9 @@ final class CreateHabitVC: UIViewController {
     }
 
     var selectedIndexPaths: [Int: IndexPath] = [:]
+    var numberOfRows = Int()
+
+    var dataProvider: DataProvider?
 
     override func loadView() {
         super.loadView()
@@ -111,6 +114,7 @@ final class CreateHabitVC: UIViewController {
 
     init(isHabit: Bool) {
         self.isHabit = isHabit
+        numberOfRows = isHabit ? 2 : 1
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -182,15 +186,23 @@ extension CreateHabitVC: CreateHabitDelegate {
         }
 
         let tracker = Tracker(
+            trackerID: UUID().uuidString,
             title: trackerTitle,
             color: trackerColor,
             emoji: trackerEmoji,
             schedule: trackerSchedule
         )
+
+        dataProvider?.addTracker(tracker: tracker)
+        guard let savedTracker = dataProvider?.getTracker(by: tracker.trackerID) else {
+            return
+        }
         let newTracker = TrackerCategory(
             title: categoryTitle ?? "",
-            trackers: [tracker]
+            trackers: [savedTracker]
         )
+        dataProvider?.addTrackerCategory(category: newTracker)
+
         NotificationCenter.default.post(
             name: NSNotification.Name(rawValue: "NotificationIdentifier"),
             object: nil,
@@ -201,6 +213,12 @@ extension CreateHabitVC: CreateHabitDelegate {
             object: nil
         )
         dismiss(animated: true)
+    }
+
+    func clearTextField() {
+        createHabitView.textField.text = ""
+        createHabitView.tableViewTopConstraint?.constant = 24
+        createHabitView.warningLabel.isHidden = true
     }
 }
 
@@ -219,12 +237,23 @@ extension CreateHabitVC: UITextFieldDelegate {
             in: stringRange, with: string
         )
 
+        if updatedText.count > 0 {
+            createHabitView.clearButton.isHidden = false
+        } else {
+            createHabitView.clearButton.isHidden = true
+        }
+
         if updatedText.count <= 38 {
             trackerTitle = updatedText
+            createHabitView.tableViewTopConstraint?.constant = 24
+            createHabitView.warningLabel.isHidden = true
             return true
         } else {
+            createHabitView.tableViewTopConstraint?.constant = 62
+            createHabitView.warningLabel.isHidden = false
             return false
         }
+
     }
 }
 

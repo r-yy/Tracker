@@ -21,6 +21,8 @@ final class CategoriesVC: UIViewController {
 
     weak var delegate: CategoriesSelectDelegate?
 
+    var dataProvider: DataProvider?
+
     override func loadView() {
         super.loadView()
         view = categoriesView
@@ -28,39 +30,14 @@ final class CategoriesVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        getCategories()
         setTitle()
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handleNotification(_:)),
-            name: Notification.Name("SetCategoryTitle"),
-            object: nil
-        )
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(self.reloadTableView),
-            name: Notification.Name("CategoriesUpdated"),
-            object: nil
-        )
+        setTableViewHeight()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         checkStubImage()
-    }
-
-    @objc
-    private func handleNotification(_ notification: NSNotification) {
-        guard let category = notification.userInfo?["CategoryTitle"] as? String else {
-            return
-        }
-        categories.append(category)
-    }
-
-    @objc
-    private func reloadTableView(notification: NSNotification) {
-        categoriesView.tableView.reloadData()
     }
 
     private func setTitle() {
@@ -80,13 +57,35 @@ final class CategoriesVC: UIViewController {
             categoriesView.stubText.isHidden = true
         }
     }
+
+    private func getCategories() {
+        guard let dataProvider else { return }
+        categories = dataProvider.getCategories().map({ $0.title })
+    }
 }
 
 extension CategoriesVC: CategoriesDelegate {
     func createCategory() {
         let newCategoryVC = NewCategoryVC()
         newCategoryVC.newCategoryView.delegate = newCategoryVC
+        newCategoryVC.delegate = self
         newCategoryVC.navigationItem.hidesBackButton = true
         self.navigationController?.pushViewController(newCategoryVC, animated: true)
+    }
+
+    func setTableViewHeight() {
+        let height = CGFloat(categories.count * 75)
+        NSLayoutConstraint.activate([
+            categoriesView.tableView.heightAnchor.constraint(
+                equalToConstant: height
+            )
+        ])
+    }
+}
+
+extension CategoriesVC: NewCategoryVCDelegate {
+    func addCategory(category: String) {
+        categories.append(category)
+        categoriesView.tableView.reloadData()
     }
 }

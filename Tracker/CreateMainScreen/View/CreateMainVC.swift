@@ -9,6 +9,7 @@ import UIKit
 
 final class CreateMainVC: UIViewController {
     let createMainView = CreateMainView()
+    var dataProvider: DataProvider?
 
     override func loadView() {
         super.loadView()
@@ -36,6 +37,7 @@ extension CreateMainVC: CreateMainDelegate {
     func createHabit() {
         let createHabitVC = CreateHabitVC(isHabit: true)
         createHabitVC.createHabitView.delegate = createHabitVC
+        createHabitVC.dataProvider = dataProvider
         createHabitVC.navigationItem.hidesBackButton = true
         self.navigationController?.pushViewController(
             createHabitVC, animated: true
@@ -45,6 +47,7 @@ extension CreateMainVC: CreateMainDelegate {
     func createEvent() {
         let createHabitVC = CreateHabitVC(isHabit: false)
         createHabitVC.createHabitView.delegate = createHabitVC
+        createHabitVC.dataProvider = dataProvider
         createHabitVC.navigationItem.hidesBackButton = true
         self.navigationController?.pushViewController(
             createHabitVC, animated: true

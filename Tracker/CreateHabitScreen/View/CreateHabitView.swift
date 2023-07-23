@@ -57,7 +57,27 @@ final class CreateHabitView: UIView {
         textField.layer.cornerRadius = 16
         textField.becomeFirstResponder()
 
+        let rightView = UIView(frame: CGRect(x: 0, y: 0, width: 38, height: 20))
+        textField.rightView = rightView
+        textField.rightViewMode = .always
+
         return textField
+    }()
+
+    let clearButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(systemName: "xmark.circle.fill")?.withTintColor(
+            .ypGray, renderingMode: .alwaysOriginal
+        )
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 20)
+        let largeImage = image?.withConfiguration(imageConfig)
+
+        button.setImage(largeImage, for: .normal)
+        button.addTarget(
+            nil, action: #selector(clearButtonTap), for: .touchUpInside
+        )
+
+        return button
     }()
     
     let tableView: UITableView = {
@@ -69,6 +89,7 @@ final class CreateHabitView: UIView {
         tableView.layer.masksToBounds = true
         tableView.layer.cornerRadius = 16
         tableView.keyboardDismissMode = .onDrag
+        tableView.separatorStyle = .none
 
         return tableView
     }()
@@ -122,6 +143,21 @@ final class CreateHabitView: UIView {
         return button
     }()
 
+    let warningLabel: UILabel = {
+        let label = UILabel()
+
+        label.text = "Ограничение 38 символов"
+        label.textColor = .ypRed
+        label.font = UIFont(
+            name: "SF Pro Text Regular",
+            size: 17
+        )
+
+        return label
+    }()
+
+    var tableViewTopConstraint: NSLayoutConstraint?
+
     weak var delegate: CreateHabitDelegate?
 
     override init(frame: CGRect) {
@@ -143,17 +179,20 @@ final class CreateHabitView: UIView {
         delegate?.createTracker()
     }
 
+    @objc private func clearButtonTap() {
+        delegate?.clearTextField()
+        clearButton.isHidden = true
+    }
+
     private func makeView() {
         backgroundColor = .ypWhite
 
-        addSubview(textField)
-        addSubview(tableView)
-        addSubview(collectionView)
-        addSubview(stackView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        [
+            textField, tableView, collectionView, stackView, warningLabel, clearButton
+        ].forEach { item in
+            addSubview(item)
+            item.translatesAutoresizingMaskIntoConstraints = false
+        }
 
         NSLayoutConstraint.activate([
             textField.topAnchor.constraint(
@@ -170,10 +209,6 @@ final class CreateHabitView: UIView {
             ),
             textField.heightAnchor.constraint(
                 equalToConstant: 75
-            ),
-            tableView.topAnchor.constraint(
-                equalTo: textField.bottomAnchor,
-                constant: 24
             ),
             tableView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
@@ -211,7 +246,27 @@ final class CreateHabitView: UIView {
             ),
             stackView.heightAnchor.constraint(
                 equalToConstant: 60
+            ),
+            warningLabel.centerXAnchor.constraint(
+                equalTo: centerXAnchor
+            ),
+            warningLabel.topAnchor.constraint(
+                equalTo: textField.bottomAnchor,
+                constant: 8
+            ),
+            clearButton.centerYAnchor.constraint(
+                equalTo: textField.centerYAnchor
+            ),
+            clearButton.trailingAnchor.constraint(
+                equalTo: textField.trailingAnchor,
+                constant: -12
             )
         ])
+        tableViewTopConstraint = tableView.topAnchor.constraint(
+            equalTo: textField.bottomAnchor, constant: 24
+        )
+        tableViewTopConstraint?.isActive = true
+        warningLabel.isHidden = true
+        clearButton.isHidden = true
     }
 }

@@ -12,5 +12,6 @@ protocol CategoriesDelegate: AnyObject {
 }
 
 protocol CategoriesSelectDelegate: AnyObject {
+    var categoryTitle: String? { get set }
     func selectCategory(category: String)
 }
