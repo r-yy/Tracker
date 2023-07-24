@@ -8,6 +8,9 @@
 import UIKit
 
 final class TrackersVC: UIViewController {
+    private let datePicker = UIDatePicker()
+    private let dataProvider: DataProviderProtocol
+
     lazy var trackersView: TrackersView = {
         let view = TrackersView()
 
@@ -18,16 +21,24 @@ final class TrackersVC: UIViewController {
         return view
     }()
 
-    var categories: [TrackerCategory] = []
+    lazy var categories: [TrackerCategory] = []
+
     var visibleCategories: [TrackerCategory] = []
     var completedTrackers: [TrackerRecord] = []
-    let calendar = Calendar.current
     var currentDate: Date = Date()
     var selectedDate: Date = Date()
 
-    private let dateFormatter = DateFormatter()
-    private let datePicker = UIDatePicker()
-  
+    let dateManager = DateManager.shared
+
+    init() {
+        dataProvider = DataProvider()
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+
     override func loadView() {
         super.loadView()
         view = trackersView
@@ -35,7 +46,7 @@ final class TrackersVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        getData()
         setObservers()
         checkStubImage()
         setGestureRecognizer()
@@ -75,7 +86,7 @@ final class TrackersVC: UIViewController {
         dismissKeyboard()
         let navigationController = UINavigationController()
 
-        let createMainVC = CreateMainVC()
+        let createMainVC = CreateMainVC(dataProvider: dataProvider)
         createMainVC.createMainView.delegate = createMainVC
 
         navigationController.setViewControllers([createMainVC], animated: true)
@@ -102,7 +113,9 @@ final class TrackersVC: UIViewController {
 
     private func setNavigationBar() {
         let image = UIImage(systemName: "plus")
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 21, weight: .semibold)
+        let imageConfig = UIImage.SymbolConfiguration(
+            pointSize: 21, weight: .semibold
+        )
         let largeImage = image?.withConfiguration(imageConfig)
 
         let leftBarButton = UIBarButtonItem(
@@ -116,7 +129,9 @@ final class TrackersVC: UIViewController {
         datePicker.preferredDatePickerStyle = .compact
         datePicker.datePickerMode = .date
         datePicker.backgroundColor = .ypDateGray
-        datePicker.addTarget(self, action: #selector(datePickerTap(_:)), for: .valueChanged)
+        datePicker.addTarget(
+            self, action: #selector(datePickerTap(_:)), for: .valueChanged
+        )
 
         let rightBarButton = UIBarButtonItem(customView: datePicker)
         navigationItem.rightBarButtonItem = rightBarButton
@@ -147,18 +162,19 @@ final class TrackersVC: UIViewController {
 
     func dateSelected(date: Date) {
         selectedDate = date
-        dateFormatter.locale = Locale(identifier: "ru_RU")
-        dateFormatter.dateFormat = "E"
-        let dayInWeek = dateFormatter.string(from: date).lowercased()
+        let dayInWeek = dateManager.getDayInWeek(date: date)
 
-        visibleCategories = categories.filter { category in
-            category.trackers.contains { tracker in
-                if let schedule = tracker.schedule {
-                    return schedule.contains { scheduledDay in
-                        return scheduledDay.lowercased() == dayInWeek
-                    }
-                }
-                return false
+        visibleCategories = categories.compactMap { category in
+            let filteredTrackers = category.trackers.filter {
+                $0.schedule?.contains(dayInWeek) == true
+            }
+
+            if !filteredTrackers.isEmpty {
+                var newCategory = category
+                newCategory.trackers = filteredTrackers
+                return newCategory
+            } else {
+                return nil
             }
         }
 
@@ -168,6 +184,28 @@ final class TrackersVC: UIViewController {
         checkStubImage()
         trackersView.collectionView.reloadData()
     }
+
+    private func getData() {
+        categories = dataProvider.getCategories()
+
+        let dayInWeek = dateManager.getDayInWeek(date: currentDate)
+
+        visibleCategories = categories.compactMap { category in
+            let filteredTrackers = category.trackers.filter {
+                $0.schedule?.contains(dayInWeek) == true
+            }
+
+            if !filteredTrackers.isEmpty {
+                var newCategory = category
+                newCategory.trackers = filteredTrackers
+                return newCategory
+            } else {
+                return nil
+            }
+        }
+
+        completedTrackers = dataProvider.getTrackerRecords()
+    }
 }
 
 extension TrackersVC: TrackersControllerDelegate {
@@ -175,48 +213,49 @@ extension TrackersVC: TrackersControllerDelegate {
         guard let indexPath = trackersView.collectionView.indexPath(for: cell) else {
             return
         }
-        let selectedDateComponents = calendar.dateComponents(
-            [.year, .month, .day],
-            from: selectedDate
-        )
-        let currentDateComponents = calendar.dateComponents(
-            [.year, .month, .day],
-            from: currentDate
-        )
-
-        guard let selectedDateOnly = calendar.date(
-            from: selectedDateComponents
-        ),
-              let currentDateOnly = calendar.date(
-                  from: currentDateComponents
-              ) else {
-            return
-        }
+        let selectedDateOnly = dateManager.getDateOnly(date: selectedDate)
+        let currentDateOnly = dateManager.getDateOnly(date: currentDate)
 
         if selectedDateOnly <= currentDateOnly {
-            let trackerId = visibleCategories[indexPath.section].trackers[indexPath.row].id
+            let trackerId = visibleCategories[indexPath.section]
+                .trackers[indexPath.row].trackerID
 
             if completedTrackers.contains(where: { tracker in
-                let dateComponents = calendar.dateComponents(
-                    [.year, .month, .day], from: tracker.date
-                )
-                let dateOnly = calendar.date(from: dateComponents)
-                return tracker.id == trackerId && dateOnly == selectedDateOnly
+                let dateOnly = dateManager.getDateOnly(date: tracker.date)
+                return tracker.trackerID == trackerId && dateOnly == selectedDateOnly
             }) {
-                visibleCategories[indexPath.section].trackers[indexPath.row].dayCounter -= 1
+                visibleCategories[indexPath.section]
+                    .trackers[indexPath.row].dayCounter -= 1
                 if let index = completedTrackers.firstIndex(where: { tracker in
-                    let dateComponents = calendar.dateComponents(
-                        [.year, .month, .day], from: tracker.date
-                    )
-                    let dateOnly = calendar.date(from: dateComponents)
-                    return tracker.id == trackerId && dateOnly == selectedDateOnly
+                    let dateOnly = dateManager.getDateOnly(date: tracker.date)
+                    return tracker.trackerID == trackerId && dateOnly == selectedDateOnly
                 }) {
+
                     completedTrackers.remove(at: index)
+                    let completedTracker = visibleCategories[indexPath.section]
+                        .trackers[indexPath.row]
+                    let trackerRecord = TrackerRecord(
+                        trackerID: completedTracker.trackerID, date: selectedDate
+                    )
+                    dataProvider.removeTrackerRecord(
+                        trackerID: trackerRecord.trackerID, date: selectedDate
+                    )
+                    dataProvider.decreaseDayCounter(
+                        trackerID: visibleCategories[indexPath.section]
+                            .trackers[indexPath.row].trackerID
+                    )
                 }
             } else {
-                visibleCategories[indexPath.section].trackers[indexPath.row].dayCounter += 1
-                let completedTracker = visibleCategories[indexPath.section].trackers[indexPath.row]
-                completedTrackers.append(TrackerRecord(id: completedTracker.id, date: selectedDate))
+                visibleCategories[indexPath.section]
+                    .trackers[indexPath.row].dayCounter += 1
+                let completedTracker = visibleCategories[indexPath.section]
+                    .trackers[indexPath.row]
+                let trackerRecord = TrackerRecord(
+                    trackerID: completedTracker.trackerID, date: selectedDate
+                )
+                completedTrackers.append(trackerRecord)
+                dataProvider.addTrackerRecord(record: trackerRecord)
+                dataProvider.increaseDayCounter(trackerID: visibleCategories[indexPath.section].trackers[indexPath.row].trackerID)
             }
 
             if let index = categories.firstIndex(where: { $0.title == visibleCategories[indexPath.section].title }) {

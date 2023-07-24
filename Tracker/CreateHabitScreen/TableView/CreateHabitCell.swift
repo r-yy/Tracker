@@ -10,7 +10,7 @@ import UIKit
 final class CreateHabitCell: UITableViewCell {
     static let identifier = "CreateHabitCell"
 
-    let cellText: UILabel = {
+    private let cellText: UILabel = {
         let label = UILabel()
 
         label.font = UIFont(
@@ -22,7 +22,7 @@ final class CreateHabitCell: UITableViewCell {
         return label
     }()
 
-    let cellSubText: UILabel = {
+    private let cellSubText: UILabel = {
         let label = UILabel()
 
         label.font = UIFont(
@@ -32,6 +32,23 @@ final class CreateHabitCell: UITableViewCell {
         label.textColor = .ypGray
 
         return label
+    }()
+
+    private let view: UIView = {
+        let view = UIView()
+
+        view.backgroundColor = .ypGray
+
+        return view
+    }()
+
+    private let chevronImageView: UIImageView = {
+        let view = UIImageView()
+        let image = UIImage(systemName: "chevron.right")?.withTintColor(
+            .gray, renderingMode: .alwaysOriginal
+        )
+        view.image = image
+        return view
     }()
 
     var topConstraint: NSLayoutConstraint?
@@ -48,15 +65,14 @@ final class CreateHabitCell: UITableViewCell {
     }
 
     private func makeCell() {
-        self.accessoryType = .disclosureIndicator
         contentView.layer.masksToBounds = true
         backgroundColor = .ypDateGray
 
-        contentView.addSubview(cellText)
-        contentView.addSubview(cellSubText)
+        [cellText, cellSubText, view, chevronImageView].forEach { item in
+            contentView.addSubview(item)
+            item.translatesAutoresizingMaskIntoConstraints = false
 
-        cellText.translatesAutoresizingMaskIntoConstraints = false
-        cellSubText.translatesAutoresizingMaskIntoConstraints = false
+        }
 
         NSLayoutConstraint.activate([
             cellText.leadingAnchor.constraint(
@@ -72,6 +88,28 @@ final class CreateHabitCell: UITableViewCell {
             ),
             cellSubText.leadingAnchor.constraint(
                 equalTo: cellText.leadingAnchor
+            ),
+            view.topAnchor.constraint(
+                equalTo: contentView.bottomAnchor,
+                constant: -1
+            ),
+            view.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -16
+            ),
+            view.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: 16
+            ),
+            view.heightAnchor.constraint(
+                equalToConstant: 1
+            ),
+            chevronImageView.centerYAnchor.constraint(
+                equalTo: contentView.centerYAnchor
+            ),
+            chevronImageView.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -16
             )
         ])
 
@@ -84,8 +122,12 @@ final class CreateHabitCell: UITableViewCell {
     }
 
     func configCell(
-        indexPath: IndexPath, category: String?, weekdays: [String]?
+        indexPath: IndexPath, category: String?, weekdays: [String]?, isLastCell: Bool
     ) {
+        if isLastCell {
+            view.isHidden = true
+        }
+
         if indexPath.row == 1 {
             cellText.text = "Расписание"
             if let weekdays = weekdays {

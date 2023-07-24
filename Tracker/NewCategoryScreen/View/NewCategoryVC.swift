@@ -18,6 +18,8 @@ final class NewCategoryVC: UIViewController {
         return view
     }()
 
+    weak var delegate: NewCategoryVCDelegate?
+
     override func loadView() {
         super.loadView()
         view = newCategoryView
@@ -27,7 +29,9 @@ final class NewCategoryVC: UIViewController {
         super.viewDidLoad()
         setTitle()
 
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        let tap = UITapGestureRecognizer(
+            target: self, action: #selector(dismissKeyboard)
+        )
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
@@ -51,15 +55,7 @@ final class NewCategoryVC: UIViewController {
 
 extension NewCategoryVC: NewCategoryDelegate {
     func saveCategory() {
-        NotificationCenter.default.post(
-            name: NSNotification.Name(rawValue: "SetCategoryTitle"),
-            object: nil,
-            userInfo: ["CategoryTitle": categoryTitle]
-        )
-        NotificationCenter.default.post(
-            name: Notification.Name("CategoriesUpdated"),
-            object: nil
-        )
+        delegate?.addCategory(category: categoryTitle)
         navigationController?.popViewController(animated: true)
     }
 }

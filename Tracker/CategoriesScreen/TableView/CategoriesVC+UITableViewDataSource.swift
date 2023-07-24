@@ -25,7 +25,11 @@ extension CategoriesVC: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        cell.configCell(title: categories[indexPath.row])
+        let isLastCategory = indexPath.row == categories.count - 1
+        let isChosen = categories[indexPath.row] == delegate?.categoryTitle
+        let title = categories[indexPath.row]
+        let categoriesCellModel = CategoriesCellModel(title: title, isChosen: isChosen, isLastCategory: isLastCategory)
+        cell.configCell(model: categoriesCellModel)
 
         return cell
     }

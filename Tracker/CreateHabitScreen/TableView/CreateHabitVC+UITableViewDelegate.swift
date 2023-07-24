@@ -13,7 +13,7 @@ extension CreateHabitVC: UITableViewDelegate {
         didSelectRowAt indexPath: IndexPath
     ) {
         if indexPath.row == 0 {
-            let categoriesVC = CategoriesVC()
+            let categoriesVC = CategoriesVC(dataProvider: dataProvider)
             categoriesVC.delegate = self
             categoriesVC.categoriesView.delegate = categoriesVC
             categoriesVC.navigationItem.hidesBackButton = true

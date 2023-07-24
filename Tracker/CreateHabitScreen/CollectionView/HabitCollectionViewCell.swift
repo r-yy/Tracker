@@ -10,13 +10,13 @@ import UIKit
 final class HabitCollectionViewCell: UICollectionViewCell {
     static let identifier = "HabitCollectionViewCell"
 
-    let emojiLabel: UILabel = {
+    private let emojiLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 35)
         return label
     }()
 
-    let colorView: UIView = {
+    private let colorView: UIView = {
         let view = UIView()
 
         view.layer.masksToBounds = true

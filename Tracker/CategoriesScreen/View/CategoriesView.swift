@@ -55,7 +55,10 @@ final class CategoriesView: UIView {
             CategoriesCell.self,
             forCellReuseIdentifier: CategoriesCell.identifier
         )
+        tableView.layer.masksToBounds = true
+        tableView.layer.cornerRadius = 16
         tableView.separatorStyle = .none
+
 
         return tableView
     }()
@@ -126,13 +129,13 @@ final class CategoriesView: UIView {
                 equalTo: trailingAnchor,
                 constant: -16
             ),
-            tableView.bottomAnchor.constraint(
-                equalTo: createButton.topAnchor,
-                constant: -24
-            ),
             tableView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
                 constant: 16
+            ),
+            tableView.bottomAnchor.constraint(
+                equalTo: bottomAnchor,
+                constant: -140
             )
         ])
     }

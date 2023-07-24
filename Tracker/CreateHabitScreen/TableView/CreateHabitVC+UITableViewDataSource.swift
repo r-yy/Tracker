@@ -12,7 +12,7 @@ extension CreateHabitVC: UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return isHabit == true ? 2 : 1
+        return numberOfRows
     }
 
     func tableView(
@@ -26,10 +26,12 @@ extension CreateHabitVC: UITableViewDataSource {
             return UITableViewCell()
         }
 
+        let isLastCell = indexPath.row == numberOfRows - 1
         cell.configCell(
             indexPath: indexPath,
             category: categoryTitle,
-            weekdays: trackerSchedule
+            weekdays: trackerSchedule,
+            isLastCell: isLastCell
         )
 
         return cell

@@ -10,7 +10,7 @@ import UIKit
 final class TrackersCell: UICollectionViewCell {
     static let identifier = "TrackersCell"
 
-    let colorView: UIView = {
+    private let colorView: UIView = {
         let view = UIView()
 
         view.layer.masksToBounds = true
@@ -19,12 +19,12 @@ final class TrackersCell: UICollectionViewCell {
         return view
     }()
 
-    let emojiLabel: UILabel = {
+    private let emojiLabel: UILabel = {
         let label = UILabel()
         return label
     }()
 
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
 
         label.textColor = .ypWhite
@@ -36,7 +36,7 @@ final class TrackersCell: UICollectionViewCell {
         return label
     }()
 
-    let dateLabel: UILabel = {
+    private let dateLabel: UILabel = {
         let label = UILabel()
 
         label.textColor = .ypBlack
@@ -48,7 +48,7 @@ final class TrackersCell: UICollectionViewCell {
         return label
     }()
 
-    let plusButton: UIButton = {
+    private let plusButton: UIButton = {
         let button = UIButton()
 
         button.tintColor = .ypWhite

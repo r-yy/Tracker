@@ -10,4 +10,5 @@ import Foundation
 protocol CreateHabitDelegate: AnyObject {
     func closeWindow()
     func createTracker()
+    func clearTextField()
 }

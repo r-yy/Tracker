@@ -10,7 +10,7 @@ import UIKit
 final class TrackerHeader: UICollectionReusableView {
     static let identifier = "TrackerHeader"
 
-    let label: UILabel = {
+    private let label: UILabel = {
         let label = UILabel()
 
         label.text = "Важное"
@@ -29,6 +29,10 @@ final class TrackerHeader: UICollectionReusableView {
 
     required init?(coder: NSCoder) {
         fatalError()
+    }
+
+    func setCategoryHeader(header: String) {
+        label.text = header
     }
 
     private func makeView() {
