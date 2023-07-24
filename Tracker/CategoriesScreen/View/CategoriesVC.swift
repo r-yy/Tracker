@@ -21,7 +21,16 @@ final class CategoriesVC: UIViewController {
 
     weak var delegate: CategoriesSelectDelegate?
 
-    var dataProvider: DataProvider?
+    var dataProvider: DataProviderProtocol
+
+    init(dataProvider: DataProviderProtocol) {
+        self.dataProvider = dataProvider
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func loadView() {
         super.loadView()
@@ -59,7 +68,6 @@ final class CategoriesVC: UIViewController {
     }
 
     private func getCategories() {
-        guard let dataProvider else { return }
         categories = dataProvider.getCategories().map({ $0.title })
     }
 }

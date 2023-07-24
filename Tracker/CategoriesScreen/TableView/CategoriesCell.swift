@@ -10,7 +10,7 @@ import UIKit
 final class CategoriesCell: UITableViewCell {
     static let identifier = "CategoriesCell"
 
-    let cellLabel: UILabel = {
+    private let cellLabel: UILabel = {
         let label = UILabel()
 
         label.font = UIFont(
@@ -22,7 +22,7 @@ final class CategoriesCell: UITableViewCell {
         return label
     }()
 
-    let view: UIView = {
+    private let view: UIView = {
         let view = UIView()
 
         view.backgroundColor = .ypGray
@@ -30,7 +30,7 @@ final class CategoriesCell: UITableViewCell {
         return view
     }()
 
-    let checkmarkView: UIImageView = {
+    private let checkmarkView: UIImageView = {
         let view = UIImageView()
 
         view.image = UIImage(systemName: "checkmark")
@@ -104,9 +104,10 @@ final class CategoriesCell: UITableViewCell {
         checkmarkView.isHidden = true
     }
 
-    func configCell(title: String, isLastCell: Bool) {
-        cellLabel.text = title
-        if isLastCell {
+    func configCell(model: CategoriesCellModel) {
+        checkmarkView.isHidden = !model.isChosen
+        cellLabel.text = model.title
+        if model.isLastCategory {
             contentView.clipsToBounds = true
             contentView.layer.cornerRadius = 16
             contentView.layer.maskedCorners = [

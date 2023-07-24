@@ -26,7 +26,9 @@ extension TrackersVC: UICollectionViewDelegateFlowLayout {
             ) as? TrackerHeader else {
                 return UICollectionReusableView()
             }
-            header.label.text = visibleCategories[indexPath.section].title
+            header.setCategoryHeader(
+                header: visibleCategories[indexPath.section].title
+            )
             return header
         default:
             return UICollectionReusableView()

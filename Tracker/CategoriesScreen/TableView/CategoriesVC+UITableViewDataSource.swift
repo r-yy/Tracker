@@ -25,11 +25,11 @@ extension CategoriesVC: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        let isLastCell = indexPath.row == categories.count - 1
-        if categories[indexPath.row] == delegate?.categoryTitle {
-            cell.checkmarkView.isHidden = false
-        }
-        cell.configCell(title: categories[indexPath.row], isLastCell: isLastCell)
+        let isLastCategory = indexPath.row == categories.count - 1
+        let isChosen = categories[indexPath.row] == delegate?.categoryTitle
+        let title = categories[indexPath.row]
+        let categoriesCellModel = CategoriesCellModel(title: title, isChosen: isChosen, isLastCategory: isLastCategory)
+        cell.configCell(model: categoriesCellModel)
 
         return cell
     }

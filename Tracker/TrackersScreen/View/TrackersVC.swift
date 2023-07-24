@@ -9,6 +9,7 @@ import UIKit
 
 final class TrackersVC: UIViewController {
     private let datePicker = UIDatePicker()
+    private let dataProvider: DataProviderProtocol
 
     lazy var trackersView: TrackersView = {
         let view = TrackersView()
@@ -28,7 +29,15 @@ final class TrackersVC: UIViewController {
     var selectedDate: Date = Date()
 
     let dateManager = DateManager.shared
-    let dataProvider = DataProvider()
+
+    init() {
+        dataProvider = DataProvider()
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
 
     override func loadView() {
         super.loadView()
@@ -77,9 +86,8 @@ final class TrackersVC: UIViewController {
         dismissKeyboard()
         let navigationController = UINavigationController()
 
-        let createMainVC = CreateMainVC()
+        let createMainVC = CreateMainVC(dataProvider: dataProvider)
         createMainVC.createMainView.delegate = createMainVC
-        createMainVC.dataProvider = dataProvider
 
         navigationController.setViewControllers([createMainVC], animated: true)
 

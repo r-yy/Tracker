@@ -22,7 +22,13 @@ extension CategoriesVC: UITableViewDelegate {
         guard let cell = tableView.cellForRow(at: indexPath) as? CategoriesCell else {
             return
         }
-        cell.checkmarkView.isHidden = false
+
+        let isLastCategory = indexPath.row == categories.count - 1
+        let isChosen = true
+        let title = categories[indexPath.row]
+        let categoriesCellModel = CategoriesCellModel(title: title, isChosen: isChosen, isLastCategory: isLastCategory)
+
+        cell.configCell(model: categoriesCellModel)
         delegate?.selectCategory(category: categories[indexPath.row])
         navigationController?.popViewController(animated: true)
     }

@@ -10,7 +10,7 @@ import UIKit
 final class CreateHabitCell: UITableViewCell {
     static let identifier = "CreateHabitCell"
 
-    let cellText: UILabel = {
+    private let cellText: UILabel = {
         let label = UILabel()
 
         label.font = UIFont(
@@ -22,7 +22,7 @@ final class CreateHabitCell: UITableViewCell {
         return label
     }()
 
-    let cellSubText: UILabel = {
+    private let cellSubText: UILabel = {
         let label = UILabel()
 
         label.font = UIFont(
@@ -34,7 +34,7 @@ final class CreateHabitCell: UITableViewCell {
         return label
     }()
 
-    let view: UIView = {
+    private let view: UIView = {
         let view = UIView()
 
         view.backgroundColor = .ypGray
@@ -42,7 +42,7 @@ final class CreateHabitCell: UITableViewCell {
         return view
     }()
 
-    let chevronImageView: UIImageView = {
+    private let chevronImageView: UIImageView = {
         let view = UIImageView()
         let image = UIImage(systemName: "chevron.right")?.withTintColor(
             .gray, renderingMode: .alwaysOriginal

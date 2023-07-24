@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E49F353B2A6EF2D300ECB5B9 /* CategoriesCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49F353A2A6EF2D300ECB5B9 /* CategoriesCellModel.swift */; };
 		E49FD4FD2A6AE671004DAA04 /* TrackerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FD4FC2A6AE671004DAA04 /* TrackerStore.swift */; };
 		E49FD4FF2A6AE67B004DAA04 /* TrackerCategoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FD4FE2A6AE67B004DAA04 /* TrackerCategoryStore.swift */; };
 		E49FD5012A6AE685004DAA04 /* TrackerRecordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FD5002A6AE685004DAA04 /* TrackerRecordStore.swift */; };
@@ -69,6 +70,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E49F353A2A6EF2D300ECB5B9 /* CategoriesCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCellModel.swift; sourceTree = "<group>"; };
 		E49FD4FC2A6AE671004DAA04 /* TrackerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerStore.swift; sourceTree = "<group>"; };
 		E49FD4FE2A6AE67B004DAA04 /* TrackerCategoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategoryStore.swift; sourceTree = "<group>"; };
 		E49FD5002A6AE685004DAA04 /* TrackerRecordStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecordStore.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 				E4A9F6AE2A5DCA5F00FA6191 /* CategoriesVC+UITableViewDelegate.swift */,
 				E4A9F6AC2A5DC60000FA6191 /* CategoriesVC+UITableViewDataSource.swift */,
 				E4A9F6AA2A5DC41200FA6191 /* CategoriesCell.swift */,
+				E49F353A2A6EF2D300ECB5B9 /* CategoriesCellModel.swift */,
 			);
 			path = TableView;
 			sourceTree = "<group>";
@@ -589,6 +592,7 @@
 				E4BDA6932A5C40EC00B4DC88 /* CreateMainView.swift in Sources */,
 				E4A9F68D2A5C8CDE00FA6191 /* TrackerCategory.swift in Sources */,
 				E4BDA6712A5C21B600B4DC88 /* Tracker.xcdatamodeld in Sources */,
+				E49F353B2A6EF2D300ECB5B9 /* CategoriesCellModel.swift in Sources */,
 				E4BDA6B92A5C7F4400B4DC88 /* ScheduleVC+UITableViewDataSource.swift in Sources */,
 				E49FD5112A6DD5C9004DAA04 /* DataProviderProtocol.swift in Sources */,
 				E4BDA6B72A5C7D7300B4DC88 /* DayOfWeek.swift in Sources */,

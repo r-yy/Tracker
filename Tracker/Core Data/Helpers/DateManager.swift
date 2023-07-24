@@ -12,6 +12,8 @@ final class DateManager {
 
     private let dateFormatter = DateFormatter()
     private let calendar = Calendar.current
+
+    private init() {}
     
     func getDateOnly(date: Date) -> Date {
         let dateComponents = calendar.dateComponents(
