@@ -19,13 +19,5 @@ extension OnboardingPageVC: UIPageViewControllerDelegate {
             pageControl.currentPage = currentIndex
         }
     }
-
-    func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        pages.count
-    }
-
-    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        0
-    }
 }
 

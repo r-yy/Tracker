@@ -27,6 +27,20 @@ final class OnboardingPageVC: UIPageViewController {
 
     }()
 
+    override init(
+        transitionStyle style: UIPageViewController.TransitionStyle,
+        navigationOrientation: UIPageViewController.NavigationOrientation,
+        options: [UIPageViewController.OptionsKey : Any]? = nil
+    ) {
+        super.init(
+            transitionStyle: .scroll, navigationOrientation: navigationOrientation
+        )
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
