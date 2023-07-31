@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E406D3082A783AD100DC9A7C /* CategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E406D3072A783AD100DC9A7C /* CategoriesViewModel.swift */; };
 		E49077B92A73014A0042C620 /* OnboardingPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49077B82A73014A0042C620 /* OnboardingPageVC.swift */; };
 		E49077BB2A73018B0042C620 /* OnboardingSlideVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49077BA2A73018B0042C620 /* OnboardingSlideVC.swift */; };
 		E49077BD2A7302110042C620 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49077BC2A7302110042C620 /* OnboardingView.swift */; };
@@ -79,6 +80,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E406D3072A783AD100DC9A7C /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
 		E49077B82A73014A0042C620 /* OnboardingPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageVC.swift; sourceTree = "<group>"; };
 		E49077BA2A73018B0042C620 /* OnboardingSlideVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSlideVC.swift; sourceTree = "<group>"; };
 		E49077BC2A7302110042C620 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -163,6 +165,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E406D3062A783AC200DC9A7C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E406D3072A783AD100DC9A7C /* CategoriesViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		E49077B72A73008D0042C620 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -541,6 +551,7 @@
 		E4BDA6A12A5C74E300B4DC88 /* CategoriesScreen */ = {
 			isa = PBXGroup;
 			children = (
+				E406D3062A783AC200DC9A7C /* ViewModel */,
 				E4A9F6BE2A5E2E2500FA6191 /* TableView */,
 				E4A9F6BD2A5E2E1900FA6191 /* Delegate */,
 				E4A9F6BB2A5E2DFC00FA6191 /* View */,
@@ -650,6 +661,7 @@
 				E4BDA6B92A5C7F4400B4DC88 /* ScheduleVC+UITableViewDataSource.swift in Sources */,
 				E49FD5112A6DD5C9004DAA04 /* DataProviderProtocol.swift in Sources */,
 				E4BDA6B72A5C7D7300B4DC88 /* DayOfWeek.swift in Sources */,
+				E406D3082A783AD100DC9A7C /* CategoriesViewModel.swift in Sources */,
 				E4A9F6972A5C952D00FA6191 /* CreateHabitVC+UICollectionViewDelegate.swift in Sources */,
 				E49FD50A2A6C17C7004DAA04 /* DataProvider.swift in Sources */,
 				E4A9F6912A5C941900FA6191 /* GridGeometric.swift in Sources */,

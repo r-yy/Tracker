@@ -12,7 +12,7 @@ extension CategoriesVC: UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return categories.count
+        return categoriesViewModel.categories.count
     }
 
     func tableView(
@@ -25,11 +25,12 @@ extension CategoriesVC: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        let isLastCategory = indexPath.row == categories.count - 1
-        let isChosen = categories[indexPath.row] == delegate?.categoryTitle
-        let title = categories[indexPath.row]
+        let isLastCategory = indexPath.row == categoriesViewModel.categories.count - 1
+        let isChosen = categoriesViewModel.categories[indexPath.row] == delegate?.categoryTitle
+        let title = categoriesViewModel.categories[indexPath.row]
         let categoriesCellModel = CategoriesCellModel(title: title, isChosen: isChosen, isLastCategory: isLastCategory)
-        cell.configCell(model: categoriesCellModel)
+
+        cell.viewModel = categoriesCellModel
 
         return cell
     }

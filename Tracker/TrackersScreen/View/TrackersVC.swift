@@ -28,10 +28,11 @@ final class TrackersVC: UIViewController {
     var currentDate: Date = Date()
     var selectedDate: Date = Date()
 
-    let dateManager = DateManager.shared
+    let dateManager: DateManager
 
     init() {
         dataProvider = DataProvider()
+        dateManager = DateManager.shared
         super.init(nibName: nil, bundle: nil)
     }
 
