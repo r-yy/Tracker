@@ -29,18 +29,10 @@ final class SplashScreenView: UIView {
         iconImage.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            iconImage.centerXAnchor.constraint(
-                equalTo: centerXAnchor
-            ),
-            iconImage.centerYAnchor.constraint(
-                equalTo: centerYAnchor
-            ),
-            iconImage.heightAnchor.constraint(
-                equalToConstant: 94
-            ),
-            iconImage.widthAnchor.constraint(
-                equalToConstant: 91
-            )
+            iconImage.centerXAnchor.constraint(equalTo: centerXAnchor),
+            iconImage.centerYAnchor.constraint(equalTo: centerYAnchor),
+            iconImage.heightAnchor.constraint(equalToConstant: 94),
+            iconImage.widthAnchor.constraint(equalToConstant: 91)
         ])
 
     }

@@ -8,7 +8,10 @@
 import UIKit
 
 extension OnboardingPageVC: UIPageViewControllerDataSource {
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+    func pageViewController(
+        _ pageViewController: UIPageViewController,
+        viewControllerBefore viewController: UIViewController
+    ) -> UIViewController? {
         guard let viewController = viewController as? OnboardingSlideVC,
               let viewControllerIndex = pages.firstIndex(of: viewController) else {
             return nil
@@ -23,7 +26,10 @@ extension OnboardingPageVC: UIPageViewControllerDataSource {
         return pages[previousIndex]
     }
 
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+    func pageViewController(
+        _ pageViewController: UIPageViewController,
+        viewControllerAfter viewController: UIViewController
+    ) -> UIViewController? {
         guard let viewController = viewController as? OnboardingSlideVC,
               let viewControllerIndex = pages.firstIndex(of: viewController) else {
             return nil

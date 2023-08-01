@@ -39,7 +39,12 @@ final class CategoriesVC: UIViewController {
         super.viewDidLoad()
         setTitle()
         setTableViewHeight()
+
         categoriesViewModel.onChange = categoriesView.tableView.reloadData
+        categoriesViewModel.categorySelected = { [weak self] category in
+            guard let category else { return }
+            self?.delegate?.selectCategory(category: category)
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {

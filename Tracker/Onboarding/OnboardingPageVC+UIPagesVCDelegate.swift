@@ -15,7 +15,7 @@ extension OnboardingPageVC: UIPageViewControllerDelegate {
         transitionCompleted completed: Bool
     ) {
         if let currentViewController = pageViewController.viewControllers?.first as? OnboardingSlideVC,
-            let currentIndex = pages.firstIndex(of: currentViewController) {
+           let currentIndex = pages.firstIndex(of: currentViewController) {
             pageControl.currentPage = currentIndex
         }
     }

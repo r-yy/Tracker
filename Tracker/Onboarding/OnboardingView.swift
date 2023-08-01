@@ -19,10 +19,7 @@ final class OnboardingView: UIView {
     let titleLabel: UILabel = {
         let label = UILabel()
 
-        label.font = UIFont(
-            name: "SF Pro Text Bold",
-            size: 32
-        )
+        label.font = UIFont(name: "SF Pro Text Bold",size: 32)
         label.numberOfLines = 2
         label.textAlignment = .center
 
@@ -37,12 +34,8 @@ final class OnboardingView: UIView {
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 16
         button.tintColor = .ypWhite
-        button.addTarget(
-            nil, action: #selector(startButtonTap), for: .touchUpInside)
-        button.titleLabel?.font = UIFont(
-            name: "SF Pro Text Regular",
-            size: 16
-        )
+        button.addTarget(nil, action: #selector(startButtonTap), for: .touchUpInside)
+        button.titleLabel?.font = UIFont(name: "SF Pro Text Regular", size: 16)
 
         return button
     }()
@@ -60,11 +53,11 @@ final class OnboardingView: UIView {
 
     @objc
     private func startButtonTap() {
-        UIView.animate(withDuration: 0.04, animations: {
-            self.startButton.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-        }) { _ in
+        UIView.animate(withDuration: 0.04, animations: { [weak self] in
+            self?.startButton.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        }) { [weak self] _ in
             UIView.animate(withDuration: 0.04, animations: {
-                self.startButton.transform = .identity
+                self?.startButton.transform = .identity
             })
         }
         delegate?.startApp()

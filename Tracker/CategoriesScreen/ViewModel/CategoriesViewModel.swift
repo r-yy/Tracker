@@ -9,10 +9,17 @@ import Foundation
 
 final class CategoriesViewModel {
     var onChange: (() -> Void)?
+    var categorySelected: ((_: String?) -> Void)?
 
     private(set) var categories: [String] = [] {
         didSet {
             onChange?()
+        }
+    }
+
+    private(set) var chosenCategory: String? {
+        didSet {
+            categorySelected?(chosenCategory)
         }
     }
 
@@ -25,6 +32,10 @@ final class CategoriesViewModel {
 
     func addCategory(category: String) {
         categories.append(category)
+    }
+
+    func selectCategory(category: String) {
+        chosenCategory = category
     }
 
     private func getCategories() {

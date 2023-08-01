@@ -8,7 +8,7 @@
 import Foundation
 
 final class StoreManager {
-    let firstStartKey = "Trckrfrststrt"
+    let firstStartKey = "TrackerFirstStart"
     let userDefaults = UserDefaults.standard
 
     var isFirstStart: Bool {

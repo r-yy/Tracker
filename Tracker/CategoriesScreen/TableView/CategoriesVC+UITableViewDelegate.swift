@@ -30,7 +30,7 @@ extension CategoriesVC: UITableViewDelegate {
 
 
         cell.viewModel = categoriesCellModel
-        delegate?.selectCategory(category: categoriesViewModel.categories[indexPath.row])
+        categoriesViewModel.selectCategory(category: title)
         navigationController?.popViewController(animated: true)
     }
 }

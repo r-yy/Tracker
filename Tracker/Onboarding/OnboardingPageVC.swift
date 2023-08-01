@@ -32,9 +32,7 @@ final class OnboardingPageVC: UIPageViewController {
         navigationOrientation: UIPageViewController.NavigationOrientation,
         options: [UIPageViewController.OptionsKey : Any]? = nil
     ) {
-        super.init(
-            transitionStyle: .scroll, navigationOrientation: navigationOrientation
-        )
+        super.init(transitionStyle: .scroll, navigationOrientation: navigationOrientation)
     }
 
     required init?(coder: NSCoder) {
