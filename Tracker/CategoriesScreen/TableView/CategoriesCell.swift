@@ -38,6 +38,22 @@ final class CategoriesCell: UITableViewCell {
         return view
     }()
 
+    var viewModel: CategoriesCellModel? {
+        didSet {
+            guard let viewModel else { return }
+            checkmarkView.isHidden = !viewModel.isChosen
+            cellLabel.text = viewModel.title
+            if viewModel.isLastCategory {
+                contentView.clipsToBounds = true
+                contentView.layer.cornerRadius = 16
+                contentView.layer.maskedCorners = [
+                    .layerMaxXMaxYCorner, .layerMinXMaxYCorner
+                ]
+                view.isHidden = true
+            }
+        }
+    }
+
     override init(
         style: UITableViewCell.CellStyle,
         reuseIdentifier: String?
@@ -102,18 +118,5 @@ final class CategoriesCell: UITableViewCell {
             )
         ])
         checkmarkView.isHidden = true
-    }
-
-    func configCell(model: CategoriesCellModel) {
-        checkmarkView.isHidden = !model.isChosen
-        cellLabel.text = model.title
-        if model.isLastCategory {
-            contentView.clipsToBounds = true
-            contentView.layer.cornerRadius = 16
-            contentView.layer.maskedCorners = [
-                .layerMaxXMaxYCorner, .layerMinXMaxYCorner
-            ]
-            view.isHidden = true
-        }
     }
 }

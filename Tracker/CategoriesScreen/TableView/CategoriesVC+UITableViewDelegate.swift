@@ -23,13 +23,14 @@ extension CategoriesVC: UITableViewDelegate {
             return
         }
 
-        let isLastCategory = indexPath.row == categories.count - 1
+        let isLastCategory = indexPath.row == categoriesViewModel.categories.count - 1
         let isChosen = true
-        let title = categories[indexPath.row]
+        let title = categoriesViewModel.categories[indexPath.row]
         let categoriesCellModel = CategoriesCellModel(title: title, isChosen: isChosen, isLastCategory: isLastCategory)
 
-        cell.configCell(model: categoriesCellModel)
-        delegate?.selectCategory(category: categories[indexPath.row])
+
+        cell.viewModel = categoriesCellModel
+        categoriesViewModel.selectCategory(category: title)
         navigationController?.popViewController(animated: true)
     }
 }

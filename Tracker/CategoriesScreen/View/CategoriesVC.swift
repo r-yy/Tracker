@@ -17,14 +17,12 @@ final class CategoriesVC: UIViewController {
         return view
     }()
 
-    var categories = [String]()
-
     weak var delegate: CategoriesSelectDelegate?
 
-    var dataProvider: DataProviderProtocol
+    let categoriesViewModel: CategoriesViewModel
 
     init(dataProvider: DataProviderProtocol) {
-        self.dataProvider = dataProvider
+        categoriesViewModel = CategoriesViewModel(dataProvider: dataProvider)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -39,9 +37,14 @@ final class CategoriesVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        getCategories()
         setTitle()
         setTableViewHeight()
+
+        categoriesViewModel.onChange = categoriesView.tableView.reloadData
+        categoriesViewModel.categorySelected = { [weak self] category in
+            guard let category else { return }
+            self?.delegate?.selectCategory(category: category)
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -61,14 +64,10 @@ final class CategoriesVC: UIViewController {
     }
 
     private func checkStubImage() {
-        if !categories.isEmpty {
+        if !categoriesViewModel.categories.isEmpty {
             categoriesView.stubImage.isHidden = true
             categoriesView.stubText.isHidden = true
         }
-    }
-
-    private func getCategories() {
-        categories = dataProvider.getCategories().map({ $0.title })
     }
 }
 
@@ -82,7 +81,7 @@ extension CategoriesVC: CategoriesDelegate {
     }
 
     func setTableViewHeight() {
-        let height = CGFloat(categories.count * 75)
+        let height = CGFloat(categoriesViewModel.categories.count * 75)
         NSLayoutConstraint.activate([
             categoriesView.tableView.heightAnchor.constraint(
                 equalToConstant: height
@@ -93,7 +92,6 @@ extension CategoriesVC: CategoriesDelegate {
 
 extension CategoriesVC: NewCategoryVCDelegate {
     func addCategory(category: String) {
-        categories.append(category)
-        categoriesView.tableView.reloadData()
+        categoriesViewModel.addCategory(category: category)
     }
 }
