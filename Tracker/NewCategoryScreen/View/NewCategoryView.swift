@@ -13,9 +13,12 @@ final class NewCategoryView: UIView {
         let paddingView = UIView(
             frame: CGRect(x: 0, y: 0, width: 16, height: textField.frame.height)
         )
+        let title = NSLocalizedString(
+            "NEW_CATEGORIES_TEXTFIELD_PLACEHOLDER", comment: ""
+        )
 
         textField.backgroundColor = .ypDateGray
-        textField.placeholder = "Введите название категории"
+        textField.placeholder = title
         textField.leftView = paddingView
         textField.leftViewMode = .always
         textField.layer.masksToBounds = true
@@ -27,8 +30,9 @@ final class NewCategoryView: UIView {
 
     let createButton: UIButton = {
         let button = UIButton()
+        let title = NSLocalizedString("CREATE_CATEGORY_BUTTON_TITLE", comment: "")
 
-        button.setTitle("Готово", for: .normal)
+        button.setTitle(title, for: .normal)
         button.addTarget(
             nil, action: #selector(createCategory), for: .touchUpInside
         )

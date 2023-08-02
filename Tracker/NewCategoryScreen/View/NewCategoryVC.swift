@@ -38,7 +38,9 @@ final class NewCategoryVC: UIViewController {
 
     private func setTitle() {
         let titleLabel = UILabel()
-        titleLabel.text = "Новая категория"
+        let title = NSLocalizedString("NEW_CATEGORIES_HEADER_LABEL", comment: "")
+
+        titleLabel.text = title
         titleLabel.textColor = .ypBlack
         titleLabel.font = UIFont(
             name: "SF Pro Text Regular",

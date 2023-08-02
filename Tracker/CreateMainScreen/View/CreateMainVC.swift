@@ -32,7 +32,8 @@ final class CreateMainVC: UIViewController {
 
     private func setTitle() {
         let titleLabel = UILabel()
-        titleLabel.text = "Создание трекера"
+        let title = NSLocalizedString("CREATE_MAIN_HEADER_LABEL", comment: "")
+        titleLabel.text = title
         titleLabel.textColor = .ypBlack
         titleLabel.font = UIFont(
             name: "SF Pro Text Regular",

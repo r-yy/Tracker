@@ -1,0 +1,47 @@
+/* 
+  Localizable.strings
+  Tracker
+
+  Created by Ramil Yanberdin on 02.08.2023.
+  
+*/
+//MARK: Onboarding view
+FIRST_SHEET_TITLE = "Отслеживайте только то, что хотите";
+SECOND_SHEET_TITLE = "Даже если это не литры воды и йога";
+BUTTON_TITLE = "Вот это технологии!";
+
+//MARK: TabBar view
+TRACKER_ITEM_TITLE = "Трекеры";
+STATISTIC_ITEM_TITLE = "Статистика";
+
+//MARK: Trackers view
+TITLE_LABEL = "Трекеры";
+SEARCH_VIEW_LABEL = "Поиск";
+STUB_LABEL = "Что будем отслеживать?";
+
+//MARK: Create main view
+CREATE_MAIN_HEADER_LABEL = "Создание трекера";
+HABIT_BUTTON_LABEL = "Привычка";
+EVENT_BUTTON_LABEL = "Нерегулярное событие";
+
+//MARK: Create habit view
+CREATE_HABIT_HEADER_LABEL = "Новая привычка";
+CREATE_HABIT_TEXTFIELD_PLACEHOLDER = "Введите название трекера";
+CREATE_HABIT_TABLEVIEW_FIRST_ROW_LABEL = "Категория";
+CREATE_HABIT_TABLEVIEW_SECOND_ROW_LABEL = "Расписание";
+CREATE_HABIT_COLLECTION_VIEW_FIRST_HEADER = "Emoji";
+CREATE_HABIT_COLLECTION_VIEW_SECOND_HEADER = "Цвет";
+
+//MARK: Categories view
+CATEGORIES_HEADER_LABEL = "Категория";
+CATEGORIES_STUB_LABEL = "Привычки и события можно\nобъединить по смыслу";
+ADD_CATEGORY_BUTTON_TITLE = "Добавить категорию";
+
+//MARK: New category view
+NEW_CATEGORIES_HEADER_LABEL = "Новая категория";
+NEW_CATEGORIES_TEXTFIELD_PLACEHOLDER = "Введите название категории";
+CREATE_CATEGORY_BUTTON_TITLE = "Готово";
+
+//MARK: Schedule view
+SCHEDULE_HEADER_LABEL = "Расписание";
+SCHEDULE_SAVE_BUTTON_LABEL = "Готово";

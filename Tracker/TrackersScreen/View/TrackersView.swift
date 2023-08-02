@@ -10,8 +10,9 @@ import UIKit
 final class TrackersView: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
+        let title = NSLocalizedString("TITLE_LABEL", comment: "")
 
-        label.text = "Трекеры"
+        label.text = title
         label.font = UIFont(
             name: "SF Pro Text Bold",
             size: 34
@@ -23,9 +24,10 @@ final class TrackersView: UIView {
 
     let searchView: UISearchTextField = {
         let searchView = UISearchTextField()
+        let title = NSLocalizedString("SEARCH_VIEW_LABEL", comment: "")
 
         searchView.backgroundColor = .ypDateGray
-        searchView.placeholder = "Поиск"
+        searchView.placeholder = title
 
         return searchView
     }()
@@ -40,8 +42,9 @@ final class TrackersView: UIView {
 
     let stubText: UILabel = {
         let label = UILabel()
+        let title = NSLocalizedString("STUB_LABEL", comment: "")
 
-        label.text = "Что будем отслеживать?"
+        label.text = title
         label.font = UIFont(
             name: "SF Pro Text Regular",
             size: 12

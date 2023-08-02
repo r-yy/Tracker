@@ -18,8 +18,9 @@ final class CategoriesView: UIView {
 
     let stubText: UILabel = {
         let label = UILabel()
+        let title = NSLocalizedString("CATEGORIES_STUB_LABEL", comment: "")
 
-        label.text = "Привычки и события можно\nобъединить по смыслу"
+        label.text = title
         label.font = UIFont(
             name: "SF Pro Text Regular",
             size: 12
@@ -32,8 +33,9 @@ final class CategoriesView: UIView {
 
     let createButton: UIButton = {
         let button = UIButton()
+        let title = NSLocalizedString("ADD_CATEGORY_BUTTON_TITLE", comment: "")
 
-        button.setTitle("Добавить категорию", for: .normal)
+        button.setTitle(title, for: .normal)
         button.addTarget(
             nil, action: #selector(createCategory), for: .touchUpInside
         )

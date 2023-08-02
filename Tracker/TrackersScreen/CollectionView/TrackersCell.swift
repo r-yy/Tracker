@@ -161,7 +161,9 @@ final class TrackersCell: UICollectionViewCell {
         colorView.backgroundColor = backgroundColor
         self.emojiLabel.text = emojilabel
         self.titleLabel.text = titleLabel
-        dateLabel.text = "\(dayCounter) дней"
+        dateLabel.text = String.localizedStringWithFormat(
+            NSLocalizedString("NUMBER_OF_DAYS", comment: ""), dayCounter
+        )
 
         if isTrackerCompleted {
             let image = UIImage(systemName: "checkmark")

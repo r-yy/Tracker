@@ -10,9 +10,10 @@ import UIKit
 final class CreateMainView: UIView {
     private let habitButton: UIButton = {
         let button = UIButton()
+        let title = NSLocalizedString("HABIT_BUTTON_LABEL", comment: "")
 
         button.backgroundColor = .ypBlack
-        button.setTitle("Привычка", for: .normal)
+        button.setTitle(title, for: .normal)
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 16
         button.addTarget(
@@ -28,9 +29,10 @@ final class CreateMainView: UIView {
 
     private let eventButton: UIButton = {
         let button = UIButton()
+        let title = NSLocalizedString("EVENT_BUTTON_LABEL", comment: "")
 
         button.backgroundColor = .ypBlack
-        button.setTitle("Нерегулярное событие", for: .normal)
+        button.setTitle(title, for: .normal)
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 16
         button.addTarget(

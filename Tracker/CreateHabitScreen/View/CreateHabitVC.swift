@@ -149,7 +149,8 @@ final class CreateHabitVC: UIViewController {
 
     private func setTitle() {
         let titleLabel = UILabel()
-        titleLabel.text = "Новая привычка"
+        let title = NSLocalizedString("CREATE_HABIT_HEADER_LABEL", comment: "")
+        titleLabel.text = title
         titleLabel.textColor = .ypBlack
         titleLabel.font = UIFont(
             name: "SF Pro Text Regular",

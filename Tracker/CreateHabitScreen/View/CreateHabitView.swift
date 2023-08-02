@@ -48,9 +48,12 @@ final class CreateHabitView: UIView {
                 x: 0, y: 0, width: 16, height: textField.frame.height
             )
         )
+        let title = NSLocalizedString(
+            "CREATE_HABIT_TEXTFIELD_PLACEHOLDER", comment: ""
+        )
 
         textField.backgroundColor = .ypDateGray
-        textField.placeholder = "Введите название трекера"
+        textField.placeholder = title
         textField.leftView = paddingView
         textField.leftViewMode = .always
         textField.layer.masksToBounds = true

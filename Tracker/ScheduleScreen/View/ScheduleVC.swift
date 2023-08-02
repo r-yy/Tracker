@@ -28,7 +28,9 @@ final class ScheduleVC: UIViewController {
 
     private func setTitle() {
         let titleLabel = UILabel()
-        titleLabel.text = "Расписание"
+        let title = NSLocalizedString("SCHEDULE_HEADER_LABEL", comment: "")
+
+        titleLabel.text = title
         titleLabel.textColor = .ypBlack
         titleLabel.font = UIFont(
             name: "SF Pro Text Regular",
