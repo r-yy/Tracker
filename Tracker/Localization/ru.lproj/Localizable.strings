@@ -18,6 +18,10 @@ STATISTIC_ITEM_TITLE = "Статистика";
 TITLE_LABEL = "Трекеры";
 SEARCH_VIEW_LABEL = "Поиск";
 STUB_LABEL = "Что будем отслеживать?";
+PIN_LABEL = "Закрепить";
+EDIT_LABEL = "Редактировать";
+DELETE_LABEL = "Удалить";
+UNPIN_LABEL = "Открепить";
 
 //MARK: Create main view
 CREATE_MAIN_HEADER_LABEL = "Создание трекера";
@@ -26,11 +30,14 @@ EVENT_BUTTON_LABEL = "Нерегулярное событие";
 
 //MARK: Create habit view
 CREATE_HABIT_HEADER_LABEL = "Новая привычка";
+EDIT_HABIT_HEADER_LABEL = "Редактирование привычки";
 CREATE_HABIT_TEXTFIELD_PLACEHOLDER = "Введите название трекера";
 CREATE_HABIT_TABLEVIEW_FIRST_ROW_LABEL = "Категория";
 CREATE_HABIT_TABLEVIEW_SECOND_ROW_LABEL = "Расписание";
 CREATE_HABIT_COLLECTION_VIEW_FIRST_HEADER = "Emoji";
 CREATE_HABIT_COLLECTION_VIEW_SECOND_HEADER = "Цвет";
+CREATE_HABIT_BUTTON_TITLE = "Создать";
+EDIT_HABIT_BUTTON_TITLE = "Сохранить";
 
 //MARK: Categories view
 CATEGORIES_HEADER_LABEL = "Категория";

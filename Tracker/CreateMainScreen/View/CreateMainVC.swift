@@ -45,7 +45,9 @@ final class CreateMainVC: UIViewController {
 
 extension CreateMainVC: CreateMainDelegate {
     func createHabit() {
-        let createHabitVC = CreateHabitVC(isHabit: true, dataProvider: dataProvider)
+        let createHabitVC = CreateHabitVC(
+            isHabit: true, dataProvider: dataProvider, trackerToEdit: nil
+        )
         createHabitVC.createHabitView.delegate = createHabitVC
         createHabitVC.navigationItem.hidesBackButton = true
         self.navigationController?.pushViewController(
@@ -54,7 +56,9 @@ extension CreateMainVC: CreateMainDelegate {
     }
 
     func createEvent() {
-        let createHabitVC = CreateHabitVC(isHabit: false, dataProvider: dataProvider)
+        let createHabitVC = CreateHabitVC(
+            isHabit: false, dataProvider: dataProvider, trackerToEdit: nil
+        )
         createHabitVC.createHabitView.delegate = createHabitVC
         createHabitVC.navigationItem.hidesBackButton = true
         self.navigationController?.pushViewController(

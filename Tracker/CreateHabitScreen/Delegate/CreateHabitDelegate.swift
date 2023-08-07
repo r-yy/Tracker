@@ -8,7 +8,10 @@
 import Foundation
 
 protocol CreateHabitDelegate: AnyObject {
+    var trackerToEdit: Tracker? { get set }
+
     func closeWindow()
     func createTracker()
     func clearTextField()
+    func editTracker()
 }

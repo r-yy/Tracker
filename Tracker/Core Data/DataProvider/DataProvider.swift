@@ -196,4 +196,12 @@ extension DataProvider: DataProviderProtocol {
     func decreaseDayCounter(trackerID: String) {
         try? trackerDataStore?.decreaseDayCounter(trackerID: trackerID)
     }
+
+    func getCategoryFrom(tracker: Tracker) -> String? {
+        trackerDataStore?.getCategoryFrom(tracker: tracker)
+    }
+
+    func editTracker(trackerCategory: TrackerCategory) {
+        try? trackerCategoryDataStore?.updateTracker(trackerCategory: trackerCategory)
+    }
 }

@@ -88,10 +88,13 @@ final class CreateHabitVC: UIViewController {
 
     var dataProvider: DataProviderProtocol
 
-    init(isHabit: Bool, dataProvider: DataProviderProtocol) {
+    var trackerToEdit: Tracker?
+
+    init(isHabit: Bool, dataProvider: DataProviderProtocol, trackerToEdit: Tracker?) {
         self.isHabit = isHabit
         numberOfRows = isHabit ? 2 : 1
         self.dataProvider = dataProvider
+        self.trackerToEdit = trackerToEdit
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -121,6 +124,9 @@ final class CreateHabitVC: UIViewController {
         )
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
+
+        guard let trackerToEdit else { return }
+        setupVC(tracker: trackerToEdit)
     }
 
     @objc
@@ -140,6 +146,23 @@ final class CreateHabitVC: UIViewController {
         view.endEditing(true)
     }
 
+    func setupVC(tracker: Tracker?) {
+        guard let tracker else { return }
+        createHabitView.setupView(withTracker: tracker)
+
+        let range = NSRange(location: 0, length: createHabitView.textField.text?.count ?? 0)
+        let replacementString = tracker.title
+        textField(createHabitView.textField, shouldChangeCharactersIn: range, replacementString: replacementString)
+
+        trackerSchedule = tracker.schedule
+        categoryTitle = dataProvider.getCategoryFrom(tracker: tracker)
+
+        trackerEmoji = tracker.emoji
+        trackerColor = tracker.color
+        trackerSchedule = tracker.schedule
+        trackerTitle = tracker.title
+    }
+
     private func updateButtonAppearance() {
         if isFormComplete {
             createHabitView.createButton.backgroundColor = .ypBlack
@@ -149,7 +172,11 @@ final class CreateHabitVC: UIViewController {
 
     private func setTitle() {
         let titleLabel = UILabel()
-        let title = NSLocalizedString("CREATE_HABIT_HEADER_LABEL", comment: "")
+
+        let title = trackerToEdit == nil ?
+        NSLocalizedString("CREATE_HABIT_HEADER_LABEL", comment: "")
+        : NSLocalizedString("EDIT_HABIT_HEADER_LABEL", comment: "")
+        
         titleLabel.text = title
         titleLabel.textColor = .ypBlack
         titleLabel.font = UIFont(
@@ -221,6 +248,29 @@ extension CreateHabitVC: CreateHabitDelegate {
         createHabitView.textField.text = ""
         createHabitView.tableViewTopConstraint?.constant = 24
         createHabitView.warningLabel.isHidden = true
+    }
+
+    func editTracker() {
+        guard let trackerToEdit else { return }
+        let tracker = Tracker(
+            trackerID: trackerToEdit.trackerID,
+            title: trackerTitle,
+            color: trackerColor,
+            emoji: trackerEmoji,
+            schedule: trackerSchedule
+        )
+
+        dataProvider.editTracker(
+            trackerCategory: TrackerCategory(title: categoryTitle ?? "",
+                                             trackers: [tracker])
+        )
+
+        NotificationCenter.default.post(
+            name: Notification.Name("TrackersUpdated"),
+            object: nil
+        )
+
+        dismiss(animated: true)
     }
 }
 

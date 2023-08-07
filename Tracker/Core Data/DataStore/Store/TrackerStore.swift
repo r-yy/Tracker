@@ -136,4 +136,21 @@ extension TrackerStore: TrackerDataStore {
             }
         }
     }
+
+    func getCategoryFrom(tracker: Tracker) -> String? {
+        let request = NSFetchRequest<TrackerCoreData>(
+            entityName: "TrackerCoreData"
+        )
+        request.returnsObjectsAsFaults = false
+        request.predicate = NSPredicate(
+            format: "%K == %@", #keyPath(TrackerCoreData.trackerID), tracker.trackerID
+        )
+        guard let result = try? context.fetch(request),
+              let tracker = result.first else {
+            print("Tracker not found")
+            return nil
+        }
+
+        return tracker.category?.title
+    }
 }

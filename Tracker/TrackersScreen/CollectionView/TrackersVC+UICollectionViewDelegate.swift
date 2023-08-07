@@ -34,4 +34,50 @@ extension TrackersVC: UICollectionViewDelegateFlowLayout {
             return UICollectionReusableView()
         }
     }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        contextMenuConfigurationForItemsAt indexPaths: [IndexPath],
+        point: CGPoint
+    ) -> UIContextMenuConfiguration? {
+        let indexPath = indexPaths[0]
+        let tracker: Tracker = visibleCategories[indexPath.section].trackers[indexPath.row]
+            return UIContextMenuConfiguration(actionProvider: { actions in
+                return UIMenu(children: [
+                    UIAction(
+                        title: NSLocalizedString("PIN_LABEL",
+                                                 comment: "")
+                    ) { _ in
+                        self.pinTracker(tracker: tracker)
+                    },
+                    UIAction(
+                        title: NSLocalizedString("EDIT_LABEL",
+                                                 comment: "")
+                    ) { [weak self] _ in
+                        guard let self else { return }
+                        let navigationController = UINavigationController()
+                        let createHabitVC = CreateHabitVC(
+                            isHabit: true,
+                            dataProvider: self.dataProvider,
+                            trackerToEdit: tracker
+                        )
+                        createHabitVC.createHabitView.delegate = createHabitVC
+
+                        navigationController.setViewControllers(
+                            [createHabitVC], animated: false
+                        )
+
+                        navigationController.modalPresentationStyle = .formSheet
+                        self.present(navigationController, animated: true)
+                    },
+                    UIAction(
+                        title: NSLocalizedString("DELETE_LABEL",
+                                                 comment: ""),
+                        attributes: .destructive
+                    ) { _ in
+
+                    },
+                ])
+            })
+    }
 }

@@ -13,5 +13,6 @@ protocol TrackerDataStore {
     func getTrackerCoreData(by id: String) -> TrackerCoreData?
     func increaseDayCounter(trackerID: String) throws
     func decreaseDayCounter(trackerID: String) throws
+    func getCategoryFrom(tracker: Tracker) -> String?
 }
 

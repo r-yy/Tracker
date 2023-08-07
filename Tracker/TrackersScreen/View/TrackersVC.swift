@@ -9,7 +9,7 @@ import UIKit
 
 final class TrackersVC: UIViewController {
     private let datePicker = UIDatePicker()
-    private let dataProvider: DataProviderProtocol
+    let dataProvider: DataProviderProtocol
 
     lazy var trackersView: TrackersView = {
         let view = TrackersView()
@@ -73,6 +73,7 @@ final class TrackersVC: UIViewController {
 
     @objc
     private func reloadCollectionView(notification: NSNotification) {
+        getData()
         dateSelected(date: selectedDate)
         trackersView.collectionView.reloadData()
     }
@@ -161,6 +162,37 @@ final class TrackersVC: UIViewController {
         )
     }
 
+    private func getData() {
+        categories = dataProvider.getCategories()
+
+        if let pinnedCategoryIndex = categories.firstIndex(where: {
+            $0.title == "Закрепленные"
+        }) {
+            let pinnedCategory = categories[pinnedCategoryIndex]
+            categories.remove(at: pinnedCategoryIndex)
+            categories.insert(pinnedCategory, at: 0)
+        }
+
+        let dayInWeek = dateManager.getDayInWeek(date: currentDate)
+
+        visibleCategories = categories.compactMap { category in
+            let filteredTrackers = category.trackers.filter {
+                $0.schedule?.contains(dayInWeek) == true
+            }
+
+            if !filteredTrackers.isEmpty {
+                var newCategory = category
+                newCategory.trackers = filteredTrackers
+                return newCategory
+            } else {
+                return nil
+            }
+        }
+
+        completedTrackers = dataProvider.getTrackerRecords()
+    }
+
+
     func dateSelected(date: Date) {
         selectedDate = date
         let dayInWeek = dateManager.getDayInWeek(date: date)
@@ -186,26 +218,11 @@ final class TrackersVC: UIViewController {
         trackersView.collectionView.reloadData()
     }
 
-    private func getData() {
-        categories = dataProvider.getCategories()
-
-        let dayInWeek = dateManager.getDayInWeek(date: currentDate)
-
-        visibleCategories = categories.compactMap { category in
-            let filteredTrackers = category.trackers.filter {
-                $0.schedule?.contains(dayInWeek) == true
-            }
-
-            if !filteredTrackers.isEmpty {
-                var newCategory = category
-                newCategory.trackers = filteredTrackers
-                return newCategory
-            } else {
-                return nil
-            }
-        }
-
-        completedTrackers = dataProvider.getTrackerRecords()
+    func pinTracker(tracker: Tracker) {
+        let category = TrackerCategory(title: "Закрепленные", trackers: [tracker])
+        dataProvider.addTrackerCategory(category: category)
+        getData()
+        trackersView.collectionView.reloadData()
     }
 }
 

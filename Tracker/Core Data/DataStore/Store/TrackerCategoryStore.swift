@@ -57,5 +57,43 @@ extension TrackerCategoryStore: TrackerCategoryDataStore {
             }
         }
     }
+
+    func updateTracker(trackerCategory: TrackerCategory) throws {
+        let request = NSFetchRequest<TrackerCategoryCoreData>(entityName: "TrackerCategoryCoreData")
+        request.returnsObjectsAsFaults = false
+        request.predicate = NSPredicate(
+            format: "%K == %@", #keyPath(TrackerCategoryCoreData.title), trackerCategory.title
+        )
+
+        let category = {
+            if let result = try? self.context.fetch(request),
+               let trackerCategory = result.first {
+                return trackerCategory
+            } else {
+                let trackerCategoryData = TrackerCategoryCoreData(
+                    context: self.context
+                )
+                trackerCategoryData.id = UUID()
+                trackerCategoryData.title = trackerCategory.title
+                return trackerCategoryData
+            }
+        }
+
+        try performSync { context in
+            Result {
+                let tracker = dataProvider.getTrackerCoreData(
+                    by: trackerCategory.trackers[0].trackerID
+                )
+                tracker?.title = trackerCategory.trackers[0].title
+                tracker?.emoji = trackerCategory.trackers[0].emoji
+                tracker?.color = trackerCategory.trackers[0].color.hexString
+                tracker?.schedule = trackerCategory.trackers[0].schedule?.joined(separator: ",")
+                tracker?.category = category()
+                try context.save()
+            }
+        }
+
+        try add(trackerCategory)
+    }
 }
 

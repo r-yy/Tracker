@@ -32,6 +32,20 @@ extension CreateHabitVC: UICollectionViewDataSource {
             cell.configColorCell(color: colorsArray[indexPath.row])
         }
 
+        guard let trackerToEdit,
+              let emojiIndex = emojiArray.firstIndex(of: trackerToEdit.emoji),
+              let colorIndex = colorsArray.firstIndex(of: trackerToEdit.color) else {
+            return cell
+        }
+
+        if indexPath == IndexPath(item: emojiIndex, section: 0) {
+            trackerEmoji = emojiArray[emojiIndex]
+            cell.selectCellWithFill()
+        } else if indexPath == IndexPath(item: colorIndex, section: 1) {
+            trackerColor = colorsArray[indexPath.row]
+            cell.selectCellWithOutline(color: colorsArray[colorIndex])
+        }
+
         return cell
     }
 }
