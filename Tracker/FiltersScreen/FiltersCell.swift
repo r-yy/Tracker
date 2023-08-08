@@ -1,14 +1,14 @@
 //
-//  CategoriesCell.swift
+//  FiltersCell.swift
 //  Tracker
 //
-//  Created by Ramil Yanberdin on 11.07.2023.
+//  Created by Ramil Yanberdin on 09.08.2023.
 //
 
 import UIKit
 
-final class CategoriesCell: UITableViewCell {
-    static let identifier = "CategoriesCell"
+final class FiltersCell: UITableViewCell {
+    static let identifier = "FiltersCell"
 
     private let cellLabel: UILabel = {
         let label = UILabel()
@@ -37,22 +37,6 @@ final class CategoriesCell: UITableViewCell {
 
         return view
     }()
-
-    var viewModel: CategoriesCellModel? {
-        didSet {
-            guard let viewModel else { return }
-            checkmarkView.isHidden = !viewModel.isChosen
-            cellLabel.text = viewModel.title
-            if viewModel.isLastCategory {
-                contentView.clipsToBounds = true
-                contentView.layer.cornerRadius = 16
-                contentView.layer.maskedCorners = [
-                    .layerMaxXMaxYCorner, .layerMinXMaxYCorner
-                ]
-                view.isHidden = true
-            }
-        }
-    }
 
     override init(
         style: UITableViewCell.CellStyle,
@@ -118,5 +102,16 @@ final class CategoriesCell: UITableViewCell {
             )
         ])
         checkmarkView.isHidden = true
+    }
+
+    func configCell(title: String, numberOfRow: Int) {
+        cellLabel.text = title
+        if numberOfRow == 3 {
+            view.isHidden = true
+        }
+    }
+
+    func isChosen() {
+        checkmarkView.isHidden = false
     }
 }

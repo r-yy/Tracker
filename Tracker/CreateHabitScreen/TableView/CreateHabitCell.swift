@@ -102,7 +102,7 @@ final class CreateHabitCell: UITableViewCell {
                 constant: 16
             ),
             view.heightAnchor.constraint(
-                equalToConstant: 1
+                equalToConstant: 0.5
             ),
             chevronImageView.centerYAnchor.constraint(
                 equalTo: contentView.centerYAnchor

@@ -17,6 +17,7 @@ final class TrackersVC: UIViewController {
         view.collectionView.dataSource = self
         view.collectionView.delegate = self
         view.searchView.delegate = self
+        view.delegate = self
 
         return view
     }()
@@ -49,7 +50,7 @@ final class TrackersVC: UIViewController {
         super.viewDidLoad()
         getData()
         setObservers()
-        checkStubImage()
+        checkEmptyState()
         setGestureRecognizer()
         setNavigationBar()
     }
@@ -68,7 +69,7 @@ final class TrackersVC: UIViewController {
             categories.append(newTracker)
         }
         visibleCategories = categories
-        checkStubImage()
+        checkEmptyState()
     }
 
     @objc
@@ -103,13 +104,15 @@ final class TrackersVC: UIViewController {
         dateSelected(date: selectedDate)
     }
 
-    private func checkStubImage() {
+    private func checkEmptyState() {
         if !visibleCategories.isEmpty {
             trackersView.stubText.isHidden = true
             trackersView.stubImage.isHidden = true
+            trackersView.filtersButton.isHidden = false
         } else {
             trackersView.stubText.isHidden = false
             trackersView.stubImage.isHidden = false
+            trackersView.filtersButton.isHidden = true
         }
     }
 
@@ -214,7 +217,7 @@ final class TrackersVC: UIViewController {
             self?.dataProvider.deleteTracker(tracker: tracker)
             self?.getData()
             self?.trackersView.collectionView.reloadData()
-            self?.checkStubImage()
+            self?.checkEmptyState()
         }
 
         let cancelAction = UIAlertAction(
@@ -246,10 +249,7 @@ final class TrackersVC: UIViewController {
             }
         }
 
-        if visibleCategories.isEmpty {
-
-        }
-        checkStubImage()
+        checkEmptyState()
         trackersView.collectionView.reloadData()
     }
 
@@ -367,7 +367,78 @@ extension TrackersVC: UITextFieldDelegate {
         } else {
             dateSelected(date: selectedDate)
         }
-        checkStubImage()
+        checkEmptyState()
         trackersView.collectionView.reloadData()
+    }
+}
+
+extension TrackersVC: TrackersViewDelegate {
+    func openFilters() {
+        let navigationController = UINavigationController()
+        let filtersVC = FiltersVC()
+        filtersVC.delegate = self
+
+        navigationController.setViewControllers(
+            [filtersVC], animated: false
+        )
+
+        navigationController.modalPresentationStyle = .formSheet
+        self.present(navigationController, animated: true)
+    }
+}
+
+extension TrackersVC: FiltersVCDelegate {
+    func filterTrackers(filter: Int) {
+        switch filter {
+        case 0:
+            visibleCategories = categories
+            trackersView.collectionView.reloadData()
+            checkEmptyState()
+        case 1:
+            dateSelected(date: currentDate)
+            datePicker.date = currentDate
+        case 2:
+            showCompletedTrackers()
+        default:
+            showIncompleteTrackers()
+        }
+    }
+
+    private func showCompletedTrackers() {
+        let completedTrackersFromBD = dataProvider.getTrackersRecord()
+        getData()
+
+        visibleCategories = visibleCategories.compactMap { category in
+            var filteredCategory = category
+            filteredCategory.trackers = category.trackers.filter { tracker in
+                completedTrackersFromBD.contains { record in
+                    let recordDate = dateManager.getDateOnly(date: record.date)
+                    let currentDate = dateManager.getDateOnly(date: currentDate)
+                    return record.trackerID == tracker.trackerID && recordDate == currentDate
+                }
+            }
+            return filteredCategory.trackers.isEmpty ? nil : filteredCategory
+        }
+        trackersView.collectionView.reloadData()
+        checkEmptyState()
+    }
+
+    private func showIncompleteTrackers() {
+        let completedTrackersFromBD = dataProvider.getTrackersRecord()
+        getData()
+
+        visibleCategories = visibleCategories.compactMap { category in
+            var filteredCategory = category
+            filteredCategory.trackers = category.trackers.filter { tracker in
+                !completedTrackersFromBD.contains { record in
+                    let recordDate = dateManager.getDateOnly(date: record.date)
+                    let currentDate = dateManager.getDateOnly(date: currentDate)
+                    return record.trackerID == tracker.trackerID && recordDate == currentDate
+                }
+            }
+            return filteredCategory.trackers.isEmpty ? nil : filteredCategory
+        }
+        trackersView.collectionView.reloadData()
+        checkEmptyState()
     }
 }

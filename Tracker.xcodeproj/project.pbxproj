@@ -21,6 +21,12 @@
 		E49077CD2A7316550042C620 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49077CC2A7316550042C620 /* StoreManager.swift */; };
 		E49335182A82C952004AA246 /* TrackerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49335172A82C952004AA246 /* TrackerSnapshotTests.swift */; };
 		E49335202A82C9A3004AA246 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = E493351F2A82C9A3004AA246 /* SnapshotTesting */; };
+		E49335232A82E0E5004AA246 /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49335222A82E0E5004AA246 /* FiltersView.swift */; };
+		E49335252A82E0EC004AA246 /* FiltersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49335242A82E0EC004AA246 /* FiltersVC.swift */; };
+		E49335272A82E0F7004AA246 /* FiltersDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49335262A82E0F7004AA246 /* FiltersDelegate.swift */; };
+		E49335292A82E74E004AA246 /* FiltersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49335282A82E74E004AA246 /* FiltersCell.swift */; };
+		E493352B2A82E7F9004AA246 /* FiltersVC+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E493352A2A82E7F9004AA246 /* FiltersVC+UITableViewDataSource.swift */; };
+		E493352D2A82EC8B004AA246 /* FIltersVC+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E493352C2A82EC8B004AA246 /* FIltersVC+UITableViewDelegate.swift */; };
 		E49F353B2A6EF2D300ECB5B9 /* CategoriesCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49F353A2A6EF2D300ECB5B9 /* CategoriesCellModel.swift */; };
 		E49FD4FD2A6AE671004DAA04 /* TrackerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FD4FC2A6AE671004DAA04 /* TrackerStore.swift */; };
 		E49FD4FF2A6AE67B004DAA04 /* TrackerCategoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FD4FE2A6AE67B004DAA04 /* TrackerCategoryStore.swift */; };
@@ -108,6 +114,12 @@
 		E49077CC2A7316550042C620 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		E49335152A82C952004AA246 /* TrackerSnapshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrackerSnapshotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E49335172A82C952004AA246 /* TrackerSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerSnapshotTests.swift; sourceTree = "<group>"; };
+		E49335222A82E0E5004AA246 /* FiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
+		E49335242A82E0EC004AA246 /* FiltersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersVC.swift; sourceTree = "<group>"; };
+		E49335262A82E0F7004AA246 /* FiltersDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersDelegate.swift; sourceTree = "<group>"; };
+		E49335282A82E74E004AA246 /* FiltersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersCell.swift; sourceTree = "<group>"; };
+		E493352A2A82E7F9004AA246 /* FiltersVC+UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FiltersVC+UITableViewDataSource.swift"; sourceTree = "<group>"; };
+		E493352C2A82EC8B004AA246 /* FIltersVC+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FIltersVC+UITableViewDelegate.swift"; sourceTree = "<group>"; };
 		E49F353A2A6EF2D300ECB5B9 /* CategoriesCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCellModel.swift; sourceTree = "<group>"; };
 		E49FD4FC2A6AE671004DAA04 /* TrackerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerStore.swift; sourceTree = "<group>"; };
 		E49FD4FE2A6AE67B004DAA04 /* TrackerCategoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategoryStore.swift; sourceTree = "<group>"; };
@@ -244,6 +256,19 @@
 				E49335172A82C952004AA246 /* TrackerSnapshotTests.swift */,
 			);
 			path = TrackerSnapshotTests;
+			sourceTree = "<group>";
+		};
+		E49335212A82E0D2004AA246 /* FiltersScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E49335222A82E0E5004AA246 /* FiltersView.swift */,
+				E49335242A82E0EC004AA246 /* FiltersVC.swift */,
+				E49335262A82E0F7004AA246 /* FiltersDelegate.swift */,
+				E49335282A82E74E004AA246 /* FiltersCell.swift */,
+				E493352A2A82E7F9004AA246 /* FiltersVC+UITableViewDataSource.swift */,
+				E493352C2A82EC8B004AA246 /* FIltersVC+UITableViewDelegate.swift */,
+			);
+			path = FiltersScreen;
 			sourceTree = "<group>";
 		};
 		E49FD4F82A6AE63D004DAA04 /* Core Data */ = {
@@ -512,6 +537,7 @@
 		E4BDA6652A5C21B600B4DC88 /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				E49335212A82E0D2004AA246 /* FiltersScreen */,
 				E4262C642A7AD97D003A1C22 /* Localization */,
 				E49077CB2A7316470042C620 /* StoreManager */,
 				E49077C42A7314910042C620 /* SplashScreen */,
@@ -757,11 +783,14 @@
 				E49FD5112A6DD5C9004DAA04 /* DataProviderProtocol.swift in Sources */,
 				E4BDA6B72A5C7D7300B4DC88 /* DayOfWeek.swift in Sources */,
 				E406D3082A783AD100DC9A7C /* CategoriesViewModel.swift in Sources */,
+				E49335292A82E74E004AA246 /* FiltersCell.swift in Sources */,
 				E4A9F6972A5C952D00FA6191 /* CreateHabitVC+UICollectionViewDelegate.swift in Sources */,
 				E49FD50A2A6C17C7004DAA04 /* DataProvider.swift in Sources */,
 				E4A9F6912A5C941900FA6191 /* GridGeometric.swift in Sources */,
+				E493352D2A82EC8B004AA246 /* FIltersVC+UITableViewDelegate.swift in Sources */,
 				E49FD5072A6C175F004DAA04 /* TrackerRecordDataStoreProtocol.swift in Sources */,
 				E4BDA6AE2A5C7AB600B4DC88 /* CategoriesDelegate.swift in Sources */,
+				E493352B2A82E7F9004AA246 /* FiltersVC+UITableViewDataSource.swift in Sources */,
 				E4BDA66B2A5C21B600B4DC88 /* TrackersVC.swift in Sources */,
 				E4BDA6AA2A5C797400B4DC88 /* NewCategoryVC.swift in Sources */,
 				E4BDA6912A5C40E000B4DC88 /* CreateMainVC.swift in Sources */,
@@ -778,6 +807,7 @@
 				E4BDA67E2A5C249900B4DC88 /* UIColor+Extension.swift in Sources */,
 				E4A9F6A52A5D86D900FA6191 /* TrackersVC+UICollectionViewDelegate.swift in Sources */,
 				E4BDA6BD2A5C810A00B4DC88 /* ScheduleDelegate.swift in Sources */,
+				E49335252A82E0EC004AA246 /* FiltersVC.swift in Sources */,
 				E49077C82A7314AA0042C620 /* SplashScreenVC.swift in Sources */,
 				E49077BF2A7304B90042C620 /* OnboardingDelegate.swift in Sources */,
 				E4BDA6822A5C270300B4DC88 /* TabBarController.swift in Sources */,
@@ -787,6 +817,7 @@
 				E4BDA69C2A5C622B00B4DC88 /* CreateHabitCell.swift in Sources */,
 				E4BDA69E2A5C637F00B4DC88 /* CreateHabitVC+UITableViewDataSource.swift in Sources */,
 				E4A9F6AB2A5DC41200FA6191 /* CategoriesCell.swift in Sources */,
+				E49335272A82E0F7004AA246 /* FiltersDelegate.swift in Sources */,
 				E4BDA6962A5C4DE800B4DC88 /* CreateHabitVC.swift in Sources */,
 				E4BDA6A02A5C65CA00B4DC88 /* CreateHabitVC+UITableViewDelegate.swift in Sources */,
 				E4BDA6B32A5C7CDB00B4DC88 /* ScheduleVC.swift in Sources */,
@@ -800,6 +831,7 @@
 				E49077C12A7307760042C620 /* OnboardingPageVC+UIPageVCDataSource.swift in Sources */,
 				E49FD4FD2A6AE671004DAA04 /* TrackerStore.swift in Sources */,
 				E4A9F6AF2A5DCA5F00FA6191 /* CategoriesVC+UITableViewDelegate.swift in Sources */,
+				E49335232A82E0E5004AA246 /* FiltersView.swift in Sources */,
 				E4A9F6A32A5D842700FA6191 /* TrackersVC+UICollectionViewDataSource.swift in Sources */,
 				E4A9F6B32A5E0C2900FA6191 /* TrackersControllerDelegate.swift in Sources */,
 				E4A9F6AD2A5DC60000FA6191 /* CategoriesVC+UITableViewDataSource.swift in Sources */,

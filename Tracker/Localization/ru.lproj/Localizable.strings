@@ -22,6 +22,7 @@ PIN_LABEL = "Закрепить";
 EDIT_LABEL = "Редактировать";
 DELETE_LABEL = "Удалить";
 UNPIN_LABEL = "Открепить";
+FILTERS_BUTTON_LABEL = "Фильтры";
 
 //MARK: Create main view
 CREATE_MAIN_HEADER_LABEL = "Создание трекера";
@@ -57,3 +58,10 @@ SCHEDULE_SAVE_BUTTON_LABEL = "Готово";
 BOTTOM_SHEET_TITLE_LABEL = "Уверены что хотите удалить трекер?";
 BOTTOM_SHEET_DELETE_LABEL = "Удалить";
 BOTTOM_SHEET_CANCEL_LABEL = "Отмена";
+
+//MARK: Filters view
+FILTER_ALL_TRACKERS = "Все трекеры";
+FILTER_CURRENT_TRACKERS = "Трекеры на сегодня";
+FILTER_COMPLETED_TRACKERS = "Завершенные";
+FILTER_NOT_COMPLETED_TRACKERS = "Не завершенные";
+FILTERS_HEADER_LABEL = "Фильтры";

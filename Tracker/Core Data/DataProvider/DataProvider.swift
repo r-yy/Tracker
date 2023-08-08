@@ -165,6 +165,20 @@ extension DataProvider: DataProviderProtocol {
         }
     }
 
+    func getTrackersRecord() -> [TrackerRecord] {
+        guard let fetchedObjects = trackerRecordFetchedResultsController
+            .fetchedObjects else { return [] }
+
+        let mappedRecords = fetchedObjects.map { record in
+            return TrackerRecord(
+                trackerID: record.trackerID ?? "",
+                date: record.date ?? Date()
+            )
+        }
+
+        return mappedRecords
+    }
+
     func getTracker(by id: String) -> Tracker? {
         trackerDataStore?.getTracker(by: id)
     }
