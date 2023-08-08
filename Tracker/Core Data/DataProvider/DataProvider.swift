@@ -206,4 +206,8 @@ extension DataProvider: DataProviderProtocol {
     func editTracker(trackerCategory: TrackerCategory) {
         try? trackerCategoryDataStore?.updateTracker(trackerCategory: trackerCategory)
     }
+
+    func deleteTracker(tracker: Tracker) {
+        try? trackerDataStore?.delete(tracker: tracker)
+    }
 }

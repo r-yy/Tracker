@@ -245,6 +245,29 @@ final class TrackersVC: UIViewController {
 
         updateTracker(category)
     }
+
+    func deleteTracker(tracker: Tracker) {
+        dataProvider.deleteTracker(tracker: tracker)
+        getData()
+        trackersView.collectionView.reloadData()
+    }
+
+    func openEditorForTracker(tracker: Tracker) {
+        let navigationController = UINavigationController()
+        let createHabitVC = CreateHabitVC(
+            isHabit: true,
+            dataProvider: self.dataProvider,
+            trackerToEdit: tracker
+        )
+        createHabitVC.createHabitView.delegate = createHabitVC
+
+        navigationController.setViewControllers(
+            [createHabitVC], animated: false
+        )
+
+        navigationController.modalPresentationStyle = .formSheet
+        self.present(navigationController, animated: true)
+    }
 }
 
 extension TrackersVC: TrackersControllerDelegate {

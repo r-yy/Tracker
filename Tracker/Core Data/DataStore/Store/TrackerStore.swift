@@ -129,7 +129,7 @@ extension TrackerStore: TrackerDataStore {
         )
         guard let result = try? context.fetch(request),
               let tracker = result.first else {
-            print("Tracker not found")
+            assertionFailure("Tracker not found")
             return
         }
 
@@ -156,5 +156,26 @@ extension TrackerStore: TrackerDataStore {
         }
 
         return tracker.category?.title
+    }
+
+    func delete(tracker: Tracker) throws {
+        let request = NSFetchRequest<TrackerCoreData>(entityName: "TrackerCoreData")
+        request.returnsObjectsAsFaults = false
+        request.predicate = NSPredicate(
+            format: "%K == %@", #keyPath(TrackerCoreData.trackerID), tracker.trackerID
+        )
+
+        guard let result = try? context.fetch(request),
+              let tracker = result.first else {
+            assertionFailure("Tracker not found")
+            return
+        }
+
+        try performSync { context in
+            Result {
+                context.delete(tracker)
+                try context.save()
+            }
+        }
     }
 }
