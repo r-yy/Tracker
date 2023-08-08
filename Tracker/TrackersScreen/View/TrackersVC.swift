@@ -200,6 +200,34 @@ final class TrackersVC: UIViewController {
         trackersView.collectionView.reloadData()
     }
 
+    private func showBottomSheet(tracker: Tracker) {
+        let alertController = UIAlertController(
+            title: NSLocalizedString("BOTTOM_SHEET_TITLE_LABEL", comment: ""),
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+
+        let deleteAction = UIAlertAction(
+            title: NSLocalizedString("BOTTOM_SHEET_DELETE_LABEL", comment: ""),
+            style: .destructive
+        ) { [weak self] _ in
+            self?.dataProvider.deleteTracker(tracker: tracker)
+            self?.getData()
+            self?.trackersView.collectionView.reloadData()
+            self?.checkStubImage()
+        }
+
+        let cancelAction = UIAlertAction(
+            title: NSLocalizedString("BOTTOM_SHEET_CANCEL_LABEL", comment: ""),
+            style: .cancel
+        )
+
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+
+        present(alertController, animated: true, completion: nil)
+    }
+
     func dateSelected(date: Date) {
         selectedDate = date
         let dayInWeek = dateManager.getDayInWeek(date: date)
@@ -247,10 +275,7 @@ final class TrackersVC: UIViewController {
     }
 
     func deleteTracker(tracker: Tracker) {
-        dataProvider.deleteTracker(tracker: tracker)
-        getData()
-        trackersView.collectionView.reloadData()
-        checkStubImage()
+        showBottomSheet(tracker: tracker)
     }
 
     func openEditorForTracker(tracker: Tracker) {

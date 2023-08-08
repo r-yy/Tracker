@@ -52,3 +52,8 @@ CREATE_CATEGORY_BUTTON_TITLE = "Готово";
 //MARK: Schedule view
 SCHEDULE_HEADER_LABEL = "Расписание";
 SCHEDULE_SAVE_BUTTON_LABEL = "Готово";
+
+//MARK: Bottom sheet view
+BOTTOM_SHEET_TITLE_LABEL = "Уверены что хотите удалить трекер?";
+BOTTOM_SHEET_DELETE_LABEL = "Удалить";
+BOTTOM_SHEET_CANCEL_LABEL = "Отмена";
