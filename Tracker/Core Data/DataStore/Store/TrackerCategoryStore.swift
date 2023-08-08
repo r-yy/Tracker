@@ -48,6 +48,8 @@ extension TrackerCategoryStore: TrackerCategoryDataStore {
                         trackerData.emoji = tracker.emoji
                         trackerData.schedule = tracker.schedule?.joined(separator: ",")
                         trackerData.dayCounter = Int64(tracker.dayCounter)
+                        trackerData.isPinned = tracker.isPinned
+                        trackerData.initialCategory = tracker.initialCategory
                         trackerData.category = trackerCategoryData
                         return trackerData
                     }
@@ -88,6 +90,7 @@ extension TrackerCategoryStore: TrackerCategoryDataStore {
                 tracker?.emoji = trackerCategory.trackers[0].emoji
                 tracker?.color = trackerCategory.trackers[0].color.hexString
                 tracker?.schedule = trackerCategory.trackers[0].schedule?.joined(separator: ",")
+                tracker?.isPinned = trackerCategory.trackers[0].isPinned
                 tracker?.category = category()
                 try context.save()
             }

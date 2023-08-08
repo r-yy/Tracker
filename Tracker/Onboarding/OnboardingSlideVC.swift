@@ -36,10 +36,6 @@ final class OnboardingSlideVC: UIViewController {
 
 extension OnboardingSlideVC: OnboardingViewDelegate {
     func startApp() {
-        guard let window = UIApplication.shared.windows.first else {
-            assertionFailure("Failed to invalid configuration")
-            return
-        }
         let tabBarController = TabBarController()
         tabBarController.modalPresentationStyle = .fullScreen
         tabBarController.modalTransitionStyle = .crossDissolve

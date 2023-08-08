@@ -219,7 +219,9 @@ extension CreateHabitVC: CreateHabitDelegate {
             title: trackerTitle,
             color: trackerColor,
             emoji: trackerEmoji,
-            schedule: trackerSchedule
+            schedule: trackerSchedule,
+            isPinned: false,
+            initialCategory: categoryTitle ?? ""
         )
 
         dataProvider.addTracker(tracker: tracker)
@@ -257,7 +259,9 @@ extension CreateHabitVC: CreateHabitDelegate {
             title: trackerTitle,
             color: trackerColor,
             emoji: trackerEmoji,
-            schedule: trackerSchedule
+            schedule: trackerSchedule,
+            isPinned: trackerToEdit.isPinned,
+            initialCategory: trackerToEdit.initialCategory
         )
 
         dataProvider.editTracker(

@@ -42,14 +42,20 @@ extension TrackersVC: UICollectionViewDelegateFlowLayout {
     ) -> UIContextMenuConfiguration? {
         let indexPath = indexPaths[0]
         let tracker: Tracker = visibleCategories[indexPath.section].trackers[indexPath.row]
+
+        let pinAction = tracker.isPinned
+        ? UIAction(title: NSLocalizedString("UNPIN_LABEL",
+                                            comment: ""), handler: { _ in
+            self.unpinTracker(tracker: tracker)
+        })
+        : UIAction(title: NSLocalizedString("PIN_LABEL",
+                                            comment: ""), handler: { _ in
+            self.pinTracker(tracker: tracker)
+        })
+
             return UIContextMenuConfiguration(actionProvider: { actions in
                 return UIMenu(children: [
-                    UIAction(
-                        title: NSLocalizedString("PIN_LABEL",
-                                                 comment: "")
-                    ) { _ in
-                        self.pinTracker(tracker: tracker)
-                    },
+                    pinAction,
                     UIAction(
                         title: NSLocalizedString("EDIT_LABEL",
                                                  comment: "")

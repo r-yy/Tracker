@@ -145,7 +145,9 @@ extension DataProvider: DataProviderProtocol {
                     color: UIColor(hex: coreDataTracker.color ?? "FFFFFF"),
                     emoji: coreDataTracker.emoji ?? "",
                     schedule: coreDataTracker.schedule?.components(separatedBy: ","),
-                    dayCounter: Int(coreDataTracker.dayCounter)
+                    dayCounter: Int(coreDataTracker.dayCounter),
+                    isPinned: coreDataTracker.isPinned,
+                    initialCategory: coreDataTracker.initialCategory ?? ""
                 )
             } ?? []
 

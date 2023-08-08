@@ -165,6 +165,8 @@ final class TrackersVC: UIViewController {
     private func getData() {
         categories = dataProvider.getCategories()
 
+        print(categories)
+
         if let pinnedCategoryIndex = categories.firstIndex(where: {
             $0.title == "Закрепленные"
         }) {
@@ -192,6 +194,11 @@ final class TrackersVC: UIViewController {
         completedTrackers = dataProvider.getTrackerRecords()
     }
 
+    private func updateTracker(_ category: TrackerCategory) {
+        dataProvider.editTracker(trackerCategory: category)
+        getData()
+        trackersView.collectionView.reloadData()
+    }
 
     func dateSelected(date: Date) {
         selectedDate = date
@@ -219,10 +226,24 @@ final class TrackersVC: UIViewController {
     }
 
     func pinTracker(tracker: Tracker) {
-        let category = TrackerCategory(title: "Закрепленные", trackers: [tracker])
-        dataProvider.addTrackerCategory(category: category)
-        getData()
-        trackersView.collectionView.reloadData()
+        var pinnedTracker = tracker
+        pinnedTracker.isPinned = true
+
+        let category = TrackerCategory(title: "Закрепленные", trackers: [pinnedTracker])
+
+        updateTracker(category)
+    }
+
+    func unpinTracker(tracker: Tracker) {
+        var unpinnedTracker = tracker
+        unpinnedTracker.isPinned = false
+
+        let category = TrackerCategory(
+            title: unpinnedTracker.initialCategory,
+            trackers: [unpinnedTracker]
+        )
+
+        updateTracker(category)
     }
 }
 

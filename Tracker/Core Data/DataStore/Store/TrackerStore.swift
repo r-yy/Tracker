@@ -36,6 +36,8 @@ extension TrackerStore: TrackerDataStore {
                 trackerData.emoji = tracker.emoji
                 trackerData.schedule = tracker.schedule?.joined(separator: ",")
                 trackerData.dayCounter = Int64(tracker.dayCounter)
+                trackerData.isPinned = tracker.isPinned
+                trackerData.initialCategory = tracker.initialCategory
                 try context.save()
             }
         }
@@ -62,7 +64,9 @@ extension TrackerStore: TrackerDataStore {
                     color: UIColor(hex: trackerData.color ?? ""),
                     emoji: trackerData.emoji ?? "",
                     schedule: trackerData.schedule?.components(separatedBy: ","),
-                    dayCounter: Int(trackerData.dayCounter)
+                    dayCounter: Int(trackerData.dayCounter),
+                    isPinned: trackerData.isPinned,
+                    initialCategory: trackerData.initialCategory ?? ""
                 )
             } catch {
                 print("Failed to fetch Tracker with id: \(id), error: \(error)")
