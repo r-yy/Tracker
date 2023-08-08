@@ -57,23 +57,23 @@ extension TrackersVC: UICollectionViewDelegateFlowLayout {
             self?.pinTracker(tracker: tracker)
         })
 
-            return UIContextMenuConfiguration(actionProvider: { actions in
-                return UIMenu(children: [
-                    pinAction,
-                    UIAction(
-                        title: NSLocalizedString("EDIT_LABEL",
-                                                 comment: "")
-                    ) { [weak self] _ in
-                        self?.openEditorForTracker(tracker: tracker)
-                    },
-                    UIAction(
-                        title: NSLocalizedString("DELETE_LABEL",
-                                                 comment: ""),
-                        attributes: .destructive
-                    ) { [weak self] _ in
-                        self?.deleteTracker(tracker: tracker)
-                    },
-                ])
-            })
+        return UIContextMenuConfiguration(actionProvider: { actions in
+            return UIMenu(children: [
+                pinAction,
+                UIAction(
+                    title: NSLocalizedString("EDIT_LABEL",
+                                             comment: "")
+                ) { [weak self] _ in
+                    self?.openEditorForTracker(tracker: tracker)
+                },
+                UIAction(
+                    title: NSLocalizedString("DELETE_LABEL",
+                                             comment: ""),
+                    attributes: .destructive
+                ) { [weak self] _ in
+                    self?.deleteTracker(tracker: tracker)
+                },
+            ])
+        })
     }
 }

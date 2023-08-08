@@ -27,7 +27,7 @@ final class TrackersCell: UICollectionViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
 
-        label.textColor = .ypWhite
+        label.textColor = .white
         label.font = UIFont(
             name: "SF Pro Text Regular",
             size: 12

@@ -27,7 +27,15 @@ final class TrackersView: UIView {
         let title = NSLocalizedString("SEARCH_VIEW_LABEL", comment: "")
 
         searchView.backgroundColor = .ypDateGray
-        searchView.placeholder = title
+
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.ypGray]
+        searchView.attributedPlaceholder = NSAttributedString(
+            string: title, attributes: attributes
+        )
+
+        if let leftView = searchView.leftView as? UIImageView {
+            leftView.tintColor = .ypGray
+        }
 
         return searchView
     }()
@@ -68,6 +76,7 @@ final class TrackersView: UIView {
         )
         collectionView.showsVerticalScrollIndicator = false
         collectionView.keyboardDismissMode = .onDrag
+        collectionView.backgroundColor = .clear
 
         return collectionView
     }()

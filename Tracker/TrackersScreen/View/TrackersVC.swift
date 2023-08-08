@@ -131,6 +131,8 @@ final class TrackersVC: UIViewController {
         datePicker.preferredDatePickerStyle = .compact
         datePicker.datePickerMode = .date
         datePicker.backgroundColor = .ypDateGray
+        datePicker.layer.masksToBounds = true
+        datePicker.layer.cornerRadius = 8
         datePicker.addTarget(
             self, action: #selector(datePickerTap(_:)), for: .valueChanged
         )
@@ -164,8 +166,6 @@ final class TrackersVC: UIViewController {
 
     private func getData() {
         categories = dataProvider.getCategories()
-
-        print(categories)
 
         if let pinnedCategoryIndex = categories.firstIndex(where: {
             $0.title == "Закрепленные"
@@ -250,6 +250,7 @@ final class TrackersVC: UIViewController {
         dataProvider.deleteTracker(tracker: tracker)
         getData()
         trackersView.collectionView.reloadData()
+        checkStubImage()
     }
 
     func openEditorForTracker(tracker: Tracker) {
