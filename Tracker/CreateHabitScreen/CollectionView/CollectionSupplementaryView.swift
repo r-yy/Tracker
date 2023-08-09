@@ -12,8 +12,11 @@ final class EmojiHeader: UICollectionReusableView {
 
     let label: UILabel = {
         let label = UILabel()
+        let title = NSLocalizedString(
+            "CREATE_HABIT_COLLECTION_VIEW_FIRST_HEADER", comment: ""
+        )
 
-        label.text = "Emoji"
+        label.text = title
         label.font = UIFont(
             name: "SF Pro Text Bold",
             size: 19
@@ -58,8 +61,11 @@ final class ColorsHeader: UICollectionReusableView {
 
     let label: UILabel = {
         let label = UILabel()
+        let title = NSLocalizedString(
+            "CREATE_HABIT_COLLECTION_VIEW_SECOND_HEADER", comment: ""
+        )
 
-        label.text = "Цвет"
+        label.text = title
         label.font = UIFont(
             name: "SF Pro Text Bold",
             size: 19

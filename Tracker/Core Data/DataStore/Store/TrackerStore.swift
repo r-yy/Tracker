@@ -36,6 +36,8 @@ extension TrackerStore: TrackerDataStore {
                 trackerData.emoji = tracker.emoji
                 trackerData.schedule = tracker.schedule?.joined(separator: ",")
                 trackerData.dayCounter = Int64(tracker.dayCounter)
+                trackerData.isPinned = tracker.isPinned
+                trackerData.initialCategory = tracker.initialCategory
                 try context.save()
             }
         }
@@ -62,7 +64,9 @@ extension TrackerStore: TrackerDataStore {
                     color: UIColor(hex: trackerData.color ?? ""),
                     emoji: trackerData.emoji ?? "",
                     schedule: trackerData.schedule?.components(separatedBy: ","),
-                    dayCounter: Int(trackerData.dayCounter)
+                    dayCounter: Int(trackerData.dayCounter),
+                    isPinned: trackerData.isPinned,
+                    initialCategory: trackerData.initialCategory ?? ""
                 )
             } catch {
                 print("Failed to fetch Tracker with id: \(id), error: \(error)")
@@ -125,13 +129,51 @@ extension TrackerStore: TrackerDataStore {
         )
         guard let result = try? context.fetch(request),
               let tracker = result.first else {
-            print("Tracker not found")
+            assertionFailure("Tracker not found")
             return
         }
 
         try performSync { context in
             Result {
                 tracker.dayCounter -= 1
+                try context.save()
+            }
+        }
+    }
+
+    func getCategoryFrom(tracker: Tracker) -> String? {
+        let request = NSFetchRequest<TrackerCoreData>(
+            entityName: "TrackerCoreData"
+        )
+        request.returnsObjectsAsFaults = false
+        request.predicate = NSPredicate(
+            format: "%K == %@", #keyPath(TrackerCoreData.trackerID), tracker.trackerID
+        )
+        guard let result = try? context.fetch(request),
+              let tracker = result.first else {
+            print("Tracker not found")
+            return nil
+        }
+
+        return tracker.category?.title
+    }
+
+    func delete(tracker: Tracker) throws {
+        let request = NSFetchRequest<TrackerCoreData>(entityName: "TrackerCoreData")
+        request.returnsObjectsAsFaults = false
+        request.predicate = NSPredicate(
+            format: "%K == %@", #keyPath(TrackerCoreData.trackerID), tracker.trackerID
+        )
+
+        guard let result = try? context.fetch(request),
+              let tracker = result.first else {
+            assertionFailure("Tracker not found")
+            return
+        }
+
+        try performSync { context in
+            Result {
+                context.delete(tracker)
                 try context.save()
             }
         }

@@ -18,20 +18,35 @@ final class TabBarController: UITabBarController {
     }
 
     private func makeTabBar() {
+        trackersVC.statisticDelegate = statisticVC
+
         let navigationBar = UINavigationController(rootViewController: trackersVC)
+        let statisticNavigationBar = UINavigationController(
+            rootViewController: statisticVC
+        )
         navigationBar.navigationBar.tintColor = .ypBlack
 
+        let trackerTabBarItemTitle = NSLocalizedString(
+            "TRACKER_ITEM_TITLE", comment: ""
+        )
         trackersVC.tabBarItem = UITabBarItem(
-            title: "Трекеры", image: UIImage(named: "tracker"), selectedImage: nil
+            title: trackerTabBarItemTitle,
+            image: UIImage(named: "tracker"),
+            selectedImage: nil
         )
 
+        let statisticTabBarItemTitle = NSLocalizedString(
+            "STATISTIC_ITEM_TITLE", comment: ""
+        )
         statisticVC.tabBarItem = UITabBarItem(
-            title: "Статистика", image: UIImage(named: "statistic"), selectedImage: nil
+            title: statisticTabBarItemTitle,
+            image: UIImage(named: "statistic"),
+            selectedImage: nil
         )
 
         self.viewControllers = [
             navigationBar,
-            statisticVC
+            statisticNavigationBar
         ]
     }
 

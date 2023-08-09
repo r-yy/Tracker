@@ -18,4 +18,8 @@ protocol DataProviderProtocol {
     func increaseDayCounter(trackerID: String)
     func removeTrackerRecord(trackerID: String, date: Date)
     func decreaseDayCounter(trackerID: String)
+    func getCategoryFrom(tracker: Tracker) -> String?
+    func editTracker(trackerCategory: TrackerCategory)
+    func deleteTracker(tracker: Tracker)
+    func getTrackersRecord() -> [TrackerRecord]
 }

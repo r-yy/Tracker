@@ -1,0 +1,73 @@
+/* 
+  Localizable.strings
+  Tracker
+
+  Created by Ramil Yanberdin on 02.08.2023.
+  
+*/
+//MARK: Onboarding view
+FIRST_SHEET_TITLE = "Track only what you want";
+SECOND_SHEET_TITLE = "Even if it's not liters of water or yoga";
+BUTTON_TITLE = "Now that's technology!";
+
+//MARK: TabBar view
+TRACKER_ITEM_TITLE = "Trackers";
+STATISTIC_ITEM_TITLE = "Statistics";
+
+//MARK: Trackers view
+TITLE_LABEL = "Trackers";
+SEARCH_VIEW_LABEL = "Search";
+STUB_LABEL = "What will we track?";
+PIN_LABEL = "Pin";
+EDIT_LABEL = "Edit";
+DELETE_LABEL = "Delete";
+UNPIN_LABEL = "Unpin";
+FILTERS_BUTTON_LABEL = "Filters";
+
+//MARK: Create main view
+CREATE_MAIN_HEADER_LABEL = "Create Tracker";
+HABIT_BUTTON_LABEL = "Habit";
+EVENT_BUTTON_LABEL = "Irregular Event";
+
+//MARK: Create habit view
+CREATE_HABIT_HEADER_LABEL = "New Habit";
+EDIT_HABIT_HEADER_LABEL = "Edit Habit";
+CREATE_HABIT_TEXTFIELD_PLACEHOLDER = "Enter tracker name";
+CREATE_HABIT_TABLEVIEW_FIRST_ROW_LABEL = "Category";
+CREATE_HABIT_TABLEVIEW_SECOND_ROW_LABEL = "Schedule";
+CREATE_HABIT_COLLECTION_VIEW_FIRST_HEADER = "Emoji";
+CREATE_HABIT_COLLECTION_VIEW_SECOND_HEADER = "Color";
+CREATE_HABIT_BUTTON_TITLE = "Create";
+EDIT_HABIT_BUTTON_TITLE = "Save";
+CANCEL_HABIT_BUTTON_TITLE = "Cancel";
+
+//MARK: Categories view
+CATEGORIES_HEADER_LABEL = "Category";
+CATEGORIES_STUB_LABEL = "Habits and events can be\ngrouped by meaning";
+ADD_CATEGORY_BUTTON_TITLE = "Add Category";
+
+//MARK: New category view
+NEW_CATEGORIES_HEADER_LABEL = "New Category";
+NEW_CATEGORIES_TEXTFIELD_PLACEHOLDER = "Enter category name";
+CREATE_CATEGORY_BUTTON_TITLE = "Done";
+
+//MARK: Schedule view
+SCHEDULE_HEADER_LABEL = "Schedule";
+SCHEDULE_SAVE_BUTTON_LABEL = "Done";
+
+//MARK: Bottom sheet view
+BOTTOM_SHEET_TITLE_LABEL = "Are you sure you want to delete the tracker?";
+BOTTOM_SHEET_DELETE_LABEL = "Delete";
+BOTTOM_SHEET_CANCEL_LABEL = "Cancel";
+
+//MARK: Filters view
+FILTER_ALL_TRACKERS = "All Trackers";
+FILTER_CURRENT_TRACKERS = "Today's Trackers";
+FILTER_COMPLETED_TRACKERS = "Completed";
+FILTER_NOT_COMPLETED_TRACKERS = "Not Completed";
+FILTERS_HEADER_LABEL = "Filters";
+
+//MARK: Statistic view
+STATISTIC_HEADER_LABEL = "Statistics";
+STATISTIC_STUB_TITLE = "Nothing to analyze yet";
+STATISTIC_TRACKERS_COMPLETED_TITLE = "Trackers Completed";

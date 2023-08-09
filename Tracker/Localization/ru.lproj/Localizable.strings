@@ -1,0 +1,73 @@
+/* 
+  Localizable.strings
+  Tracker
+
+  Created by Ramil Yanberdin on 02.08.2023.
+  
+*/
+//MARK: Onboarding view
+FIRST_SHEET_TITLE = "Отслеживайте только то, что хотите";
+SECOND_SHEET_TITLE = "Даже если это не литры воды и йога";
+BUTTON_TITLE = "Вот это технологии!";
+
+//MARK: TabBar view
+TRACKER_ITEM_TITLE = "Трекеры";
+STATISTIC_ITEM_TITLE = "Статистика";
+
+//MARK: Trackers view
+TITLE_LABEL = "Трекеры";
+SEARCH_VIEW_LABEL = "Поиск";
+STUB_LABEL = "Что будем отслеживать?";
+PIN_LABEL = "Закрепить";
+EDIT_LABEL = "Редактировать";
+DELETE_LABEL = "Удалить";
+UNPIN_LABEL = "Открепить";
+FILTERS_BUTTON_LABEL = "Фильтры";
+
+//MARK: Create main view
+CREATE_MAIN_HEADER_LABEL = "Создание трекера";
+HABIT_BUTTON_LABEL = "Привычка";
+EVENT_BUTTON_LABEL = "Нерегулярное событие";
+
+//MARK: Create habit view
+CREATE_HABIT_HEADER_LABEL = "Новая привычка";
+EDIT_HABIT_HEADER_LABEL = "Редактирование привычки";
+CREATE_HABIT_TEXTFIELD_PLACEHOLDER = "Введите название трекера";
+CREATE_HABIT_TABLEVIEW_FIRST_ROW_LABEL = "Категория";
+CREATE_HABIT_TABLEVIEW_SECOND_ROW_LABEL = "Расписание";
+CREATE_HABIT_COLLECTION_VIEW_FIRST_HEADER = "Emoji";
+CREATE_HABIT_COLLECTION_VIEW_SECOND_HEADER = "Цвет";
+CREATE_HABIT_BUTTON_TITLE = "Создать";
+EDIT_HABIT_BUTTON_TITLE = "Сохранить";
+CANCEL_HABIT_BUTTON_TITLE = "Отменить";
+
+//MARK: Categories view
+CATEGORIES_HEADER_LABEL = "Категория";
+CATEGORIES_STUB_LABEL = "Привычки и события можно\nобъединить по смыслу";
+ADD_CATEGORY_BUTTON_TITLE = "Добавить категорию";
+
+//MARK: New category view
+NEW_CATEGORIES_HEADER_LABEL = "Новая категория";
+NEW_CATEGORIES_TEXTFIELD_PLACEHOLDER = "Введите название категории";
+CREATE_CATEGORY_BUTTON_TITLE = "Готово";
+
+//MARK: Schedule view
+SCHEDULE_HEADER_LABEL = "Расписание";
+SCHEDULE_SAVE_BUTTON_LABEL = "Готово";
+
+//MARK: Bottom sheet view
+BOTTOM_SHEET_TITLE_LABEL = "Уверены что хотите удалить трекер?";
+BOTTOM_SHEET_DELETE_LABEL = "Удалить";
+BOTTOM_SHEET_CANCEL_LABEL = "Отмена";
+
+//MARK: Filters view
+FILTER_ALL_TRACKERS = "Все трекеры";
+FILTER_CURRENT_TRACKERS = "Трекеры на сегодня";
+FILTER_COMPLETED_TRACKERS = "Завершенные";
+FILTER_NOT_COMPLETED_TRACKERS = "Не завершенные";
+FILTERS_HEADER_LABEL = "Фильтры";
+
+//MARK: Statistic view
+STATISTIC_HEADER_LABEL = "Статистика";
+STATISTIC_STUB_TITLE = "Анализировать пока нечего";
+STATISTIC_TRACKERS_COMPLETED_TITLE = "Трекеров завершено";

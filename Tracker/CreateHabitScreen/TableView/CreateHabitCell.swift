@@ -102,7 +102,7 @@ final class CreateHabitCell: UITableViewCell {
                 constant: 16
             ),
             view.heightAnchor.constraint(
-                equalToConstant: 1
+                equalToConstant: 0.5
             ),
             chevronImageView.centerYAnchor.constraint(
                 equalTo: contentView.centerYAnchor
@@ -129,7 +129,10 @@ final class CreateHabitCell: UITableViewCell {
         }
 
         if indexPath.row == 1 {
-            cellText.text = "Расписание"
+            let title = NSLocalizedString(
+                "CREATE_HABIT_TABLEVIEW_SECOND_ROW_LABEL", comment: ""
+            )
+            cellText.text = title
             if let weekdays = weekdays {
                 let joinedDays = weekdays.joined(separator: ", ")
                 cellSubText.text = joinedDays
@@ -141,7 +144,10 @@ final class CreateHabitCell: UITableViewCell {
                 return
             }
         } else {
-            cellText.text = "Категория"
+            let title = NSLocalizedString(
+                "CREATE_HABIT_TABLEVIEW_FIRST_ROW_LABEL", comment: ""
+            )
+            cellText.text = title
             if let subtitle = category {
                 cellSubText.text = subtitle
                 cellSubText.isHidden = false

@@ -54,7 +54,8 @@ final class CategoriesVC: UIViewController {
 
     private func setTitle() {
         let titleLabel = UILabel()
-        titleLabel.text = "Категория"
+        let title = NSLocalizedString("CATEGORIES_HEADER_LABEL", comment: "")
+        titleLabel.text = title
         titleLabel.textColor = .ypBlack
         titleLabel.font = UIFont(
             name: "SF Pro Text Regular",

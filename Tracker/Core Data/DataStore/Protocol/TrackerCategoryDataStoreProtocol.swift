@@ -9,4 +9,5 @@ import CoreData
 
 protocol TrackerCategoryDataStore {
     func add(_ trackerCategory: TrackerCategory) throws
+    func updateTracker(trackerCategory: TrackerCategory) throws
 }

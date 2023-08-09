@@ -10,3 +10,7 @@ import Foundation
 protocol TrackersControllerDelegate: AnyObject {
     func plusButtonTap(cell: TrackersCell)
 }
+
+protocol TrackersViewDelegate: AnyObject {
+    func openFilters()
+}

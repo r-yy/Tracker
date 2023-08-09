@@ -145,7 +145,9 @@ extension DataProvider: DataProviderProtocol {
                     color: UIColor(hex: coreDataTracker.color ?? "FFFFFF"),
                     emoji: coreDataTracker.emoji ?? "",
                     schedule: coreDataTracker.schedule?.components(separatedBy: ","),
-                    dayCounter: Int(coreDataTracker.dayCounter)
+                    dayCounter: Int(coreDataTracker.dayCounter),
+                    isPinned: coreDataTracker.isPinned,
+                    initialCategory: coreDataTracker.initialCategory ?? ""
                 )
             } ?? []
 
@@ -161,6 +163,27 @@ extension DataProvider: DataProviderProtocol {
         return categoriesDict.map { title, trackers in
             return TrackerCategory(title: title, trackers: trackers)
         }
+    }
+
+    func getTrackersRecord() -> [TrackerRecord] {
+        guard let fetchedObjects = trackerRecordFetchedResultsController
+            .fetchedObjects else { return [] }
+
+        let mappedRecords = fetchedObjects.map { record in
+            return TrackerRecord(
+                trackerID: record.trackerID ?? "",
+                date: record.date ?? Date()
+            )
+        }
+
+        return mappedRecords
+    }
+
+    func getTrackers() -> [TrackerCoreData] {
+        guard let fetchedObjects = trackerFetchedResultsController
+            .fetchedObjects else { return [] }
+
+        return fetchedObjects
     }
 
     func getTracker(by id: String) -> Tracker? {
@@ -195,5 +218,17 @@ extension DataProvider: DataProviderProtocol {
 
     func decreaseDayCounter(trackerID: String) {
         try? trackerDataStore?.decreaseDayCounter(trackerID: trackerID)
+    }
+
+    func getCategoryFrom(tracker: Tracker) -> String? {
+        trackerDataStore?.getCategoryFrom(tracker: tracker)
+    }
+
+    func editTracker(trackerCategory: TrackerCategory) {
+        try? trackerCategoryDataStore?.updateTracker(trackerCategory: trackerCategory)
+    }
+
+    func deleteTracker(tracker: Tracker) {
+        try? trackerDataStore?.delete(tracker: tracker)
     }
 }

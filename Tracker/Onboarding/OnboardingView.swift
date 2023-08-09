@@ -28,8 +28,9 @@ final class OnboardingView: UIView {
 
     let startButton: UIButton = {
         let button = UIButton()
+        let title = NSLocalizedString("BUTTON_TITLE", comment: "")
 
-        button.setTitle("Вот это технологии!", for: .normal)
+        button.setTitle(title, for: .normal)
         button.backgroundColor = .ypBlack
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 16
@@ -115,10 +116,10 @@ final class OnboardingView: UIView {
     func configView(page: Int) {
         if page == 0 {
             backgroundImage.image = UIImage(named: "onboardingFirstSlide")
-            titleLabel.text = "Отслеживайте только то, что хотите"
+            titleLabel.text = NSLocalizedString("FIRST_SHEET_TITLE", comment: "")
         } else {
             backgroundImage.image = UIImage(named: "onboardingSecondSlide")
-            titleLabel.text = "Даже если это не литры воды и йога"
+            titleLabel.text = NSLocalizedString("SECOND_SHEET_TITLE", comment: "")
         }
     }
 }

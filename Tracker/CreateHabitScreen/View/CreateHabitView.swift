@@ -10,9 +10,10 @@ import UIKit
 final class CreateHabitView: UIView {
     private let cancelButton: UIButton = {
         let button = UIButton()
+        let title = NSLocalizedString("CANCEL_HABIT_BUTTON_TITLE", comment: "")
 
         button.backgroundColor = .ypWhite
-        button.setTitle("Отменить", for: .normal)
+        button.setTitle(title, for: .normal)
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 16
         button.addTarget(
@@ -48,9 +49,12 @@ final class CreateHabitView: UIView {
                 x: 0, y: 0, width: 16, height: textField.frame.height
             )
         )
+        let title = NSLocalizedString(
+            "CREATE_HABIT_TEXTFIELD_PLACEHOLDER", comment: ""
+        )
 
         textField.backgroundColor = .ypDateGray
-        textField.placeholder = "Введите название трекера"
+        textField.placeholder = title
         textField.leftView = paddingView
         textField.leftViewMode = .always
         textField.layer.masksToBounds = true
@@ -127,9 +131,10 @@ final class CreateHabitView: UIView {
 
     let createButton: UIButton = {
         let button = UIButton()
+        let title = NSLocalizedString("CREATE_HABIT_BUTTON_TITLE", comment: "")
 
         button.backgroundColor = .ypGray
-        button.setTitle("Создать", for: .normal)
+        button.setTitle(title, for: .normal)
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 16
         button.addTarget(
@@ -156,7 +161,20 @@ final class CreateHabitView: UIView {
         return label
     }()
 
+    let daysLabel: UILabel = {
+        let label = UILabel()
+
+        label.textColor = .ypBlack
+        label.font = UIFont(
+            name: "SF Pro Text Bold",
+            size: 32
+        )
+
+        return label
+    }()
+
     var tableViewTopConstraint: NSLayoutConstraint?
+    var textFieldTopConstraint: NSLayoutConstraint?
 
     weak var delegate: CreateHabitDelegate?
 
@@ -176,7 +194,11 @@ final class CreateHabitView: UIView {
 
     @objc
     private func createButtonTap() {
-        delegate?.createTracker()
+        if delegate?.trackerToEdit == nil {
+            delegate?.createTracker()
+        } else {
+            delegate?.editTracker()
+        }
     }
 
     @objc private func clearButtonTap() {
@@ -184,21 +206,46 @@ final class CreateHabitView: UIView {
         clearButton.isHidden = true
     }
 
+    func setupView(withTracker tracker: Tracker?) {
+        guard let tracker else { return }
+
+        textField.text = tracker.title
+        daysLabel.text = String.localizedStringWithFormat(
+            NSLocalizedString("NUMBER_OF_DAYS", comment: ""), tracker.dayCounter
+        )
+
+        textFieldTopConstraint?.isActive = false
+        daysLabel.isHidden = false
+
+        NSLayoutConstraint.activate([
+            daysLabel.topAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.topAnchor,
+                constant: 24
+            ),
+            daysLabel.centerXAnchor.constraint(
+                equalTo: centerXAnchor
+            ),
+            textField.topAnchor.constraint(
+                equalTo: daysLabel.bottomAnchor,
+                constant: 40
+            )
+        ])
+
+        let title = NSLocalizedString("EDIT_HABIT_BUTTON_TITLE", comment: "")
+        createButton.setTitle(title, for: .normal)
+    }
+
     private func makeView() {
         backgroundColor = .ypWhite
 
         [
-            textField, tableView, collectionView, stackView, warningLabel, clearButton
+            textField, tableView, collectionView, stackView, warningLabel, clearButton, daysLabel
         ].forEach { item in
             addSubview(item)
             item.translatesAutoresizingMaskIntoConstraints = false
         }
 
         NSLayoutConstraint.activate([
-            textField.topAnchor.constraint(
-                equalTo: safeAreaLayoutGuide.topAnchor,
-                constant: 24
-            ),
             textField.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
                 constant: -16
@@ -262,11 +309,19 @@ final class CreateHabitView: UIView {
                 constant: -12
             )
         ])
+
         tableViewTopConstraint = tableView.topAnchor.constraint(
             equalTo: textField.bottomAnchor, constant: 24
         )
+        textFieldTopConstraint = textField.topAnchor.constraint(
+            equalTo: safeAreaLayoutGuide.topAnchor,
+            constant: 24
+        )
+
+        textFieldTopConstraint?.isActive = true
         tableViewTopConstraint?.isActive = true
         warningLabel.isHidden = true
         clearButton.isHidden = true
+        daysLabel.isHidden = true
     }
 }

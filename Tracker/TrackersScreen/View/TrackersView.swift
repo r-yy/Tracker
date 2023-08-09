@@ -10,8 +10,9 @@ import UIKit
 final class TrackersView: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
+        let title = NSLocalizedString("TITLE_LABEL", comment: "")
 
-        label.text = "Трекеры"
+        label.text = title
         label.font = UIFont(
             name: "SF Pro Text Bold",
             size: 34
@@ -23,9 +24,18 @@ final class TrackersView: UIView {
 
     let searchView: UISearchTextField = {
         let searchView = UISearchTextField()
+        let title = NSLocalizedString("SEARCH_VIEW_LABEL", comment: "")
 
         searchView.backgroundColor = .ypDateGray
-        searchView.placeholder = "Поиск"
+
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.ypGray]
+        searchView.attributedPlaceholder = NSAttributedString(
+            string: title, attributes: attributes
+        )
+
+        if let leftView = searchView.leftView as? UIImageView {
+            leftView.tintColor = .ypGray
+        }
 
         return searchView
     }()
@@ -40,8 +50,9 @@ final class TrackersView: UIView {
 
     let stubText: UILabel = {
         let label = UILabel()
+        let title = NSLocalizedString("STUB_LABEL", comment: "")
 
-        label.text = "Что будем отслеживать?"
+        label.text = title
         label.font = UIFont(
             name: "SF Pro Text Regular",
             size: 12
@@ -65,6 +76,7 @@ final class TrackersView: UIView {
         )
         collectionView.showsVerticalScrollIndicator = false
         collectionView.keyboardDismissMode = .onDrag
+        collectionView.backgroundColor = .clear
 
         return collectionView
     }()
@@ -108,6 +120,24 @@ final class TrackersView: UIView {
         return section
     }
 
+    let filtersButton: UIButton = {
+        let button = UIButton()
+        let title = NSLocalizedString("FILTERS_BUTTON_LABEL", comment: "")
+
+        button.backgroundColor = .ypBlue
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = 16
+        button.setTitle(title, for: .normal)
+        button.titleLabel?.textColor = .white
+        button.addTarget(
+            nil, action: #selector(filtersButtonTap), for: .touchUpInside
+        )
+
+        return button
+    }()
+
+    weak var delegate: TrackersViewDelegate?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         makeView()
@@ -117,11 +147,17 @@ final class TrackersView: UIView {
         fatalError()
     }
 
+    @objc
+    private func filtersButtonTap() {
+        delegate?.openFilters()
+    }
+
     private func makeView() {
         backgroundColor = .ypWhite
         addSubview(titleLabel)
         addSubview(searchView)
         addSubview(collectionView)
+        addSubview(filtersButton)
         collectionView.addSubview(stubImage)
         collectionView.addSubview(stubText)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -129,6 +165,7 @@ final class TrackersView: UIView {
         stubImage.translatesAutoresizingMaskIntoConstraints = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         stubText.translatesAutoresizingMaskIntoConstraints = false
+        filtersButton.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(
@@ -178,7 +215,23 @@ final class TrackersView: UIView {
             ),
             stubText.centerXAnchor.constraint(
                 equalTo: stubImage.centerXAnchor
+            ),
+            filtersButton.trailingAnchor.constraint(
+                equalTo: trailingAnchor,
+                constant: -150
+            ),
+            filtersButton.bottomAnchor.constraint(
+                equalTo: bottomAnchor,
+                constant: -16
+            ),
+            filtersButton.leadingAnchor.constraint(
+                equalTo: leadingAnchor,
+                constant: 150
+            ),
+            filtersButton.heightAnchor.constraint(
+                equalToConstant: 55
             )
         ])
+        filtersButton.isHidden = true
     }
 }

@@ -22,8 +22,9 @@ final class ScheduleView: UIView {
 
     let createButton: UIButton = {
         let button = UIButton()
+        let title = NSLocalizedString("SCHEDULE_SAVE_BUTTON_LABEL", comment: "")
 
-        button.setTitle("Готово", for: .normal)
+        button.setTitle(title, for: .normal)
         button.addTarget(
             nil, action: #selector(setDays), for: .touchUpInside
         )

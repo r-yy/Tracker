@@ -34,6 +34,4 @@ extension CategoriesVC: UITableViewDataSource {
 
         return cell
     }
-
-    
 }
