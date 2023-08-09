@@ -10,9 +10,10 @@ import UIKit
 final class CreateHabitView: UIView {
     private let cancelButton: UIButton = {
         let button = UIButton()
+        let title = NSLocalizedString("CANCEL_HABIT_BUTTON_TITLE", comment: "")
 
         button.backgroundColor = .ypWhite
-        button.setTitle("Отменить", for: .normal)
+        button.setTitle(title, for: .normal)
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 16
         button.addTarget(
