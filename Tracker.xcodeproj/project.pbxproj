@@ -114,6 +114,8 @@
 		E4262C6F2A7AE15B003A1C22 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		E45C4C492A840258002A1B41 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		E45C4C4B2A841779002A1B41 /* StatisticDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticDelegate.swift; sourceTree = "<group>"; };
+		E45C4C532A841C21002A1B41 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E45C4C542A841C9C002A1B41 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		E49077B82A73014A0042C620 /* OnboardingPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageVC.swift; sourceTree = "<group>"; };
 		E49077BA2A73018B0042C620 /* OnboardingSlideVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSlideVC.swift; sourceTree = "<group>"; };
 		E49077BC2A7302110042C620 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -975,6 +977,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				E4262C6B2A7AD9C5003A1C22 /* ru */,
+				E45C4C532A841C21002A1B41 /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -983,6 +986,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				E4262C6F2A7AE15B003A1C22 /* ru */,
+				E45C4C542A841C9C002A1B41 /* en */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
