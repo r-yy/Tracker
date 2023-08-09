@@ -55,6 +55,16 @@ final class TrackersVC: UIViewController {
         setNavigationBar()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        AnalyticsService.report(event: "open", screen: "main", item: "")
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        AnalyticsService.report(event: "close", screen: "main", item: "")
+    }
+
     @objc
     private func handleNotification(_ notification: NSNotification) {
         guard let newTracker = notification.userInfo?["newTracker"] as? TrackerCategory else {
@@ -96,6 +106,7 @@ final class TrackersVC: UIViewController {
 
         navigationController.modalPresentationStyle = .formSheet
         present(navigationController, animated: true)
+        AnalyticsService.report(event: "click", screen: "main", item: "add_track")
     }
 
     @objc
@@ -276,6 +287,7 @@ final class TrackersVC: UIViewController {
 
     func deleteTracker(tracker: Tracker) {
         showBottomSheet(tracker: tracker)
+        AnalyticsService.report(event: "click", screen: "main", item: "delete")
     }
 
     func openEditorForTracker(tracker: Tracker) {
@@ -292,7 +304,8 @@ final class TrackersVC: UIViewController {
         )
 
         navigationController.modalPresentationStyle = .formSheet
-        self.present(navigationController, animated: true)
+        present(navigationController, animated: true)
+        AnalyticsService.report(event: "click", screen: "main", item: "edit")
     }
 }
 
@@ -344,6 +357,8 @@ extension TrackersVC: TrackersControllerDelegate {
                 completedTrackers.append(trackerRecord)
                 dataProvider.addTrackerRecord(record: trackerRecord)
                 dataProvider.increaseDayCounter(trackerID: visibleCategories[indexPath.section].trackers[indexPath.row].trackerID)
+
+                AnalyticsService.report(event: "click", screen: "main", item: "track")
             }
 
             if let index = categories.firstIndex(where: { $0.title == visibleCategories[indexPath.section].title }) {
@@ -384,6 +399,7 @@ extension TrackersVC: TrackersViewDelegate {
 
         navigationController.modalPresentationStyle = .formSheet
         self.present(navigationController, animated: true)
+        AnalyticsService.report(event: "click", screen: "main", item: "filter")
     }
 }
 
