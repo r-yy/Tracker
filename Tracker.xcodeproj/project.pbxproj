@@ -12,6 +12,7 @@
 		E4262C672A7AD994003A1C22 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4262C692A7AD994003A1C22 /* Localizable.strings */; };
 		E4262C6E2A7AE15B003A1C22 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = E4262C702A7AE15B003A1C22 /* Localizable.stringsdict */; };
 		E45C4C4A2A840258002A1B41 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C4C492A840258002A1B41 /* AnalyticsService.swift */; };
+		E45C4C4C2A841779002A1B41 /* StatisticDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C4C4B2A841779002A1B41 /* StatisticDelegate.swift */; };
 		E49077B92A73014A0042C620 /* OnboardingPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49077B82A73014A0042C620 /* OnboardingPageVC.swift */; };
 		E49077BB2A73018B0042C620 /* OnboardingSlideVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49077BA2A73018B0042C620 /* OnboardingSlideVC.swift */; };
 		E49077BD2A7302110042C620 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49077BC2A7302110042C620 /* OnboardingView.swift */; };
@@ -112,6 +113,7 @@
 		E4262C6B2A7AD9C5003A1C22 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E4262C6F2A7AE15B003A1C22 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		E45C4C492A840258002A1B41 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
+		E45C4C4B2A841779002A1B41 /* StatisticDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticDelegate.swift; sourceTree = "<group>"; };
 		E49077B82A73014A0042C620 /* OnboardingPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageVC.swift; sourceTree = "<group>"; };
 		E49077BA2A73018B0042C620 /* OnboardingSlideVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSlideVC.swift; sourceTree = "<group>"; };
 		E49077BC2A7302110042C620 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -609,6 +611,7 @@
 			isa = PBXGroup;
 			children = (
 				E4A9F6C92A5E2F0D00FA6191 /* View */,
+				E45C4C4B2A841779002A1B41 /* StatisticDelegate.swift */,
 			);
 			path = StatisticScreen;
 			sourceTree = "<group>";
@@ -941,6 +944,7 @@
 				E49FD4FD2A6AE671004DAA04 /* TrackerStore.swift in Sources */,
 				E4A9F6AF2A5DCA5F00FA6191 /* CategoriesVC+UITableViewDelegate.swift in Sources */,
 				E49335232A82E0E5004AA246 /* FiltersView.swift in Sources */,
+				E45C4C4C2A841779002A1B41 /* StatisticDelegate.swift in Sources */,
 				E4A9F6A32A5D842700FA6191 /* TrackersVC+UICollectionViewDataSource.swift in Sources */,
 				E4A9F6B32A5E0C2900FA6191 /* TrackersControllerDelegate.swift in Sources */,
 				E4A9F6AD2A5DC60000FA6191 /* CategoriesVC+UITableViewDataSource.swift in Sources */,

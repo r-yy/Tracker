@@ -65,3 +65,8 @@ FILTER_CURRENT_TRACKERS = "Трекеры на сегодня";
 FILTER_COMPLETED_TRACKERS = "Завершенные";
 FILTER_NOT_COMPLETED_TRACKERS = "Не завершенные";
 FILTERS_HEADER_LABEL = "Фильтры";
+
+//MARK: Statistic view
+STATISTIC_HEADER_LABEL = "Статистика";
+STATISTIC_STUB_TITLE = "Анализировать пока нечего";
+STATISTIC_TRACKERS_COMPLETED_TITLE = "Трекеров завершено";

@@ -31,6 +31,8 @@ final class TrackersVC: UIViewController {
 
     let dateManager: DateManager
 
+    weak var statisticDelegate: StatisticDelegate?
+
     init() {
         dataProvider = DataProvider()
         dateManager = DateManager.shared
@@ -345,6 +347,9 @@ extension TrackersVC: TrackersControllerDelegate {
                         trackerID: visibleCategories[indexPath.section]
                             .trackers[indexPath.row].trackerID
                     )
+                    statisticDelegate?.updateTrackersCompletedRecord(
+                        count: completedTrackers.count
+                    )
                 }
             } else {
                 visibleCategories[indexPath.section]
@@ -365,6 +370,9 @@ extension TrackersVC: TrackersControllerDelegate {
                 categories[index] = visibleCategories[indexPath.section]
             }
             trackersView.collectionView.reloadItems(at: [indexPath])
+            statisticDelegate?.updateTrackersCompletedRecord(
+                count: completedTrackers.count
+            )
         }
     }
 }

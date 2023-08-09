@@ -18,7 +18,12 @@ final class TabBarController: UITabBarController {
     }
 
     private func makeTabBar() {
+        trackersVC.statisticDelegate = statisticVC
+
         let navigationBar = UINavigationController(rootViewController: trackersVC)
+        let statisticNavigationBar = UINavigationController(
+            rootViewController: statisticVC
+        )
         navigationBar.navigationBar.tintColor = .ypBlack
 
         let trackerTabBarItemTitle = NSLocalizedString(
@@ -41,7 +46,7 @@ final class TabBarController: UITabBarController {
 
         self.viewControllers = [
             navigationBar,
-            statisticVC
+            statisticNavigationBar
         ]
     }
 
